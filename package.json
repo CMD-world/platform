@@ -1,0 +1,75 @@
+{
+  "name": "cmd.world.sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --open",
+    "build": "vite build",
+    "preview": "vite preview",
+    "form": "node src/form.js",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "format": "prettier --write .",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio"
+  },
+  "devDependencies": {
+    "@egoist/tailwindcss-icons": "^1.8.2",
+    "@flystorage/file-storage": "^1.0.0",
+    "@flystorage/local-fs": "^1.0.0",
+    "@iconify-json/lucide": "^1.2.20",
+    "@sveltejs/adapter-node": "^5.2.11",
+    "@sveltejs/enhanced-img": "^0.4.4",
+    "@sveltejs/kit": "^2.15.1",
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@sveltejs/vite-plugin-svelte-inspector": "^4.0.1",
+    "@tailwindcss/typography": "^0.5.15",
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.23",
+    "drizzle-kit": "^0.30.1",
+    "mdsvex": "^0.12.3",
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.2",
+    "prettier-plugin-svelte": "^3.3.2",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "svelte": "^5.16.1",
+    "svelte-check": "^4.1.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.722.0",
+    "@flystorage/aws-s3": "^1.0.0",
+    "@libsql/client": "^0.14.0",
+    "@oslojs/encoding": "^1.1.0",
+    "@pilcrowjs/object-parser": "^0.0.4",
+    "@sentry/sveltekit": "^8.47.0",
+    "arctic": "^2.3.3",
+    "drizzle-orm": "^0.38.3",
+    "formsnap": "^2.0.0",
+    "mime-types": "^2.1.35",
+    "resend": "^4.0.1",
+    "stripe": "^17.5.0",
+    "zod": "^3.24.1"
+  },
+  "prettier": {
+    "useTabs": false,
+    "tabWidth": 2,
+    "singleQuote": false,
+    "trailingComma": "all",
+    "printWidth": 140,
+    "plugins": [
+      "prettier-plugin-svelte",
+      "prettier-plugin-tailwindcss"
+    ],
+    "overrides": [
+      {
+        "files": "*.svelte",
+        "options": {
+          "parser": "svelte"
+        }
+      }
+    ]
+  }
+}

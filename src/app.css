@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: "Geist", sans-serif;
+}
+
+pre,
+code {
+    font-family: "Geist Mono", monospace;
+}
+
+.container {
+    @apply max-w-screen-lg;
+}
+
+.text {
+    @apply text-slate-600 dark:text-slate-400;
+}
+
+.p {
+    @apply text text-lg !leading-relaxed md:text-xl;
+}
+
+.link {
+    @apply text no-underline transition-colors hover:text-black dark:hover:text-white;
+}
+
+.link-active {
+    @apply text-black dark:text-white;
+}
+
+.h1 {
+    @apply text-4xl font-semibold md:text-5xl;
+}
+
+.h2 {
+    @apply text-3xl font-semibold md:text-4xl;
+}
+
+.h3 {
+    @apply text-2xl font-semibold md:text-3xl;
+}
