@@ -10,8 +10,8 @@
 {/snippet}
 
 <Section {...props} class="flex flex-wrap justify-center gap-4 py-12 {props.class}">
-  {@render brand("Stripe")}
-  {@render brand("Visa")}
-  {@render brand("PayPal")}
-  {@render brand("Square")}
+  {@render brand("OpenAI")}
+  {@render brand("Anthropic")}
+  {@render brand("Fireworks")}
+  {@render brand("Groq")}
 </Section>

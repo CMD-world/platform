@@ -3,6 +3,7 @@
   const {
     name,
     price,
+    beforePrice,
     description,
     features,
     href,
@@ -10,6 +11,7 @@
   }: {
     name: string;
     price: number;
+    beforePrice: number;
     description: string;
     features: string[];
     href?: string;
@@ -26,7 +28,7 @@
     <p class="p mt-4">{description}</p>
     <p class="my-6">
       <span class="items-center text-4xl font-extrabold text-slate-900 dark:text-slate-100">
-        <span class="text-xl text-slate-400 line-through dark:text-slate-600">${price * 2}</span>
+        <span class="text-xl text-slate-400 line-through dark:text-slate-600">${beforePrice}</span>
         ${price}
       </span>
     </p>
@@ -39,5 +41,5 @@
       {/each}
     </ul>
   </div>
-  <a class="btn btn-primary mt-4 w-full" {href}>Get MVP</a>
+  <a class="btn btn-primary mt-4 w-full" {href}>Build AI Agent</a>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: Build AI Agents Without Code
+title: Build AI Agent Without Code
 description: Learn how to create powerful AI agents using our intuitive no-code workflow builder platform.
 image: https://placehold.co/1600x900?text=Build+AI+Agents&font=roboto
 date: 2025-01-06

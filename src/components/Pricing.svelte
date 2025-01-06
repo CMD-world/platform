@@ -7,32 +7,41 @@
 </script>
 
 <Section {...props} class="py-12 {props.class}" id="pricing">
-  <h2 class="h2 mx-auto mb-12 max-w-screen-sm text-center">Save hours of repetitive code, build your MVP, get profitable!</h2>
+  <h2 class="h2 mx-auto mb-12 max-w-xl text-center">Save months of developer time, build your AI Agent today!</h2>
 
   <div class="grid gap-8 md:grid-cols-2">
     <Price
-      name="Starter MVP"
-      description="Perfect for validating your product idea"
-      price={49}
-      features={["Essential features", "Basic analytics", "Up to 100 users", "Email support"]}
-      href={"/checkout"}
+      name="Basic"
+      description="Build and test your first AI workflows"
+      price={29}
+      beforePrice={49}
+      features={[
+        "Visual workflow builder",
+        "5 workflow templates",
+        "Basic AI model integration",
+        "Up to 1000 workflow runs/month",
+        "Community support",
+      ]}
+      href={"/register"}
     />
     <Price
-      name="Growth MVP"
-      description="Scale your validated MVP"
+      name="Growth"
+      description="Scale your AI operations"
       price={79}
+      beforePrice={149}
       features={[
-        "All features",
-        "Advanced analytics",
-        "Up to 1000 users",
-        "Email support",
-        "Unlimited users",
-        "Priority support",
-        "Custom branding",
-        "API access",
+        "Everything in Basic",
+        "Unlimited workflow templates",
+        "Advanced AI model customization",
+        "Unlimited workflow runs",
+        "Custom function nodes",
+        "Workflow version control",
+        "Priority email support",
+        "API access for automation",
+        "Advanced analytics dashboard",
       ]}
       popular={true}
-      href={"/checkout"}
+      href={"/register"}
     />
   </div>
 </Section>

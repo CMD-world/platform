@@ -7,7 +7,7 @@
 
 <Section {...props} class="grid items-center gap-8 py-12 text-center md:grid-cols-2 md:text-start {props.class}">
   <div>
-      <h1 class="h1 mb-4">Build AI Agents in <br/>3 Simple Steps 🚀</h1>
+    <h1 class="h1 mb-4">Build AI Agent in <br />3 Simple Steps 🚀</h1>
     <p class="p mb-4">
       Create powerful AI agents in minutes using our visual workflow builder. Design, test, and deploy custom AI assistants for any task.
     </p>

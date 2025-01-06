@@ -14,7 +14,7 @@
 
 <div class="flex h-screen items-center justify-center px-4">
   <div class="max-w-md flex-grow">
-    <Logo class="mx-auto mb-4 max-w-40" />
+    <Logo class="mx-auto mb-6 max-w-48" />
 
     <div class="rounded-md border p-8 dark:border-slate-600">
       <h1 class="h3 mb-2">Register</h1>

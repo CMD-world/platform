@@ -22,6 +22,7 @@
 {/snippet}
 
 {#snippet menu()}
+  {@render link("Pricing", "/#pricing")}
   {@render link("Blog", "/blog")}
 
   {#if user}

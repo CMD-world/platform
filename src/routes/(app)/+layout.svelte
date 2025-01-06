@@ -7,10 +7,12 @@
   const { user } = $derived(data);
 </script>
 
-<Header {user} />
+<div class="flex min-h-screen flex-col">
+  <Header {user} />
 
-<main class="container mt-4 pb-16">
-  {@render children()}
-</main>
+  <main class="container mt-4 flex-grow pb-16">
+    {@render children()}
+  </main>
 
-<Footer />
+  <Footer />
+</div>
