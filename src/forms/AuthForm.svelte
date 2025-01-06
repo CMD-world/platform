@@ -21,17 +21,21 @@
 
 <form class="space-y-2" method="POST" use:enhance {...props}>
   <Form.Field {form} name="email">
-    <Form.Control let:attrs>
-      <Form.Label class="label">Email</Form.Label>
-      <input {...attrs} class="input input-bordered w-full" bind:value={$formData.email} autocomplete="email" type="email" />
+    <Form.Control>
+      {#snippet children({ props })}
+        <Form.Label class="label">Email</Form.Label>
+        <input {...props} class="input input-bordered w-full" bind:value={$formData.email} autocomplete="email" type="email" />
+      {/snippet}
     </Form.Control>
     <Form.FieldErrors class="text-error" />
   </Form.Field>
 
   <Form.Field {form} name="password">
-    <Form.Control let:attrs>
-      <Form.Label class="label">Password</Form.Label>
-      <input {...attrs} class="input input-bordered w-full" bind:value={$formData.password} type="password" />
+    <Form.Control>
+      {#snippet children({ props })}
+        <Form.Label class="label">Password</Form.Label>
+        <input {...props} class="input input-bordered w-full" bind:value={$formData.password} type="password" />
+      {/snippet}
     </Form.Control>
     <Form.FieldErrors class="text-error" />
   </Form.Field>

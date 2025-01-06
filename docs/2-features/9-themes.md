@@ -11,7 +11,7 @@ daisyui: {
 Then set the theme you want to use in `src/app.html`:
 
 ```html
-<html lang="en" data-theme="cmyk">
+<html lang="en" data-theme="cmyk"></html>
 ```
 
 This project uses daisyUI, which supports 20+ themes. To see a list of themes, go to [daisyUI Themes](https://daisyui.com/docs/themes/).

@@ -1,5 +1,5 @@
 {
-  "name": "cmd.world.sdk",
+  "name": "mvp",
   "version": "0.1.0",
   "type": "module",
   "scripts": {
@@ -45,11 +45,11 @@
     "@oslojs/encoding": "^1.1.0",
     "@pilcrowjs/object-parser": "^0.0.4",
     "@sentry/sveltekit": "^8.47.0",
-    "arctic": "^2.3.3",
+    "arctic": "^3.0.0",
     "drizzle-orm": "^0.38.3",
     "formsnap": "^2.0.0",
     "mime-types": "^2.1.35",
-    "zod": "^3.24.1"
+    "zod": "=3.23.8"
   },
   "prettier": {
     "useTabs": false,

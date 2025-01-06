@@ -1,4 +1,4 @@
-import { writeFile } from "fs/promises";
+import { writeFile, mkdir } from "fs/promises";
 
 // Get args from command line
 const args = process.argv.slice(2);
@@ -35,9 +35,11 @@ function renderInput({ field, type }, name) {
 
 function renderField({ field, type }, name) {
   return `  <Form.Field {form} name="${field}">
-    <Form.Control let:attrs>
-      <Form.Label class="label">${titleCase(field)}</Form.Label>
-      ${renderInput({ field, type }, name)}
+    <Form.Control>
+      {#snippet children({ props })}
+        <Form.Label class="label">${titleCase(field)}</Form.Label>
+        ${renderInput({ field, type }, name).replace("...attrs", "...props")}
+      {/snippet}
     </Form.Control>
     <Form.FieldErrors class="text-error" />
   </Form.Field>`;
@@ -92,7 +94,6 @@ async function form(name, args) {
   // Props
   type Props = {
     data: SuperValidated<Infer<typeof ${schemaName}>>;
-    name: string;
   } & HTMLFormAttributes;
 
   // Forms
@@ -163,6 +164,7 @@ export const actions: Actions = {
 <${title}Form data={data.${name}Form} action="?/${name}" />`;
 
   // Create files
+  await mkdir("src/forms", { recursive: true });
   const formPath = `src/forms/${title}Form.svelte`;
   const schemaPath = `src/forms/${schemaName}.ts`;
   await Promise.all([writeFile(formPath, form), writeFile(schemaPath, schema)]);

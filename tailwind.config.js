@@ -3,10 +3,10 @@ import tailwindcssTypography from "@tailwindcss/typography";
 import { iconsPlugin, getIconCollections } from "@egoist/tailwindcss-icons";
 
 // Brand colors
-const primary = "#0F172A";
-const primaryContent = "#FFFFFF";
+const primary = "#38BDF8";
+const primaryContent = "#010D15";
 
-/** @type {import('tailwindcss').Config} */
+// /** @type {import('tailwindcss').Config} */
 const config = {
   darkMode: ["class", '[data-theme="dark"]'],
   content: ["./src/**/*.{html,js,svelte,ts}"],
@@ -22,6 +22,11 @@ const config = {
       {
         light: {
           ...require("daisyui/src/theming/themes")["cmyk"],
+          primary,
+          "primary-content": primaryContent,
+        },
+        dark: {
+          ...require("daisyui/src/theming/themes")["night"],
           primary,
           "primary-content": primaryContent,
         },
