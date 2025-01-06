@@ -3,15 +3,15 @@
   const { google, github } = $props();
 </script>
 
-{#if google}
-  <a class="btn btn-secondary my-2 w-full" href="/google">
+{#if !google}
+  <a class="btn my-2 w-full" href="/google">
     <img src="/google.svg" width="16" height="16" alt="Google" />
     Continue with Google
   </a>
 {/if}
 
 {#if github}
-  <a class="btn btn-secondary my-2 w-full" href="/github">
+  <a class="btn my-2 w-full" href="/github">
     <img src="/github.svg" width="16" height="16" alt="GitHub" />
     Continue with GitHub
   </a>
