@@ -3,7 +3,7 @@
   const { google, github } = $props();
 </script>
 
-{#if !google}
+{#if google}
   <a class="btn my-2 w-full" href="/google">
     <img src="/google.svg" width="16" height="16" alt="Google" />
     Continue with Google
