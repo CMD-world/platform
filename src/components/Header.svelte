@@ -26,7 +26,7 @@
   {@render link("Blog", "/blog")}
 
   {#if user}
-    <a class="btn btn-primary" href="/logout" data-sveltekit-reload>Logout</a>
+    <a class="btn btn-primary" href="/dashboard">Dashboard</a>
   {:else}
     <a class="btn btn-primary" href="/login">Login</a>
   {/if}

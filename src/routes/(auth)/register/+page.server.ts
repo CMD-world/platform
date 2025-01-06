@@ -30,6 +30,6 @@ export const actions: Actions = {
       console.log(error);
       return setError(registerForm, "password", "Account already exists, try another method");
     }
-    redirect(303, "/");
+    redirect(303, "/dashboard");
   },
 };

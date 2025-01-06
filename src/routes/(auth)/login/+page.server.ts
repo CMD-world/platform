@@ -28,6 +28,6 @@ export const actions: Actions = {
     } catch (error) {
       return setError(loginForm, "password", "Invalid email/password or login method");
     }
-    redirect(303, "/");
+    redirect(303, "/dashboard");
   },
 };
