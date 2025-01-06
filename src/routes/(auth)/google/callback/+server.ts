@@ -40,5 +40,5 @@ export const GET: RequestHandler = async ({ url: { origin, searchParams }, cooki
     await register(email, { googleId });
     await login(email, { googleId }, cookies);
   }
-  redirect(303, "/");
+  redirect(303, "/dashboard");
 };

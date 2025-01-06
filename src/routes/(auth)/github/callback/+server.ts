@@ -57,5 +57,5 @@ export const GET: RequestHandler = async ({ url: { origin, searchParams }, cooki
     await register(primary.email, { githubId });
     await login(primary.email, { githubId }, cookies);
   }
-  redirect(303, "/");
+  redirect(303, "/dashboard");
 };

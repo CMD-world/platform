@@ -1,9 +1,8 @@
-import { type Handle } from "@sveltejs/kit";
+import { redirect, type Handle } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { getUserAndSession } from "$lib/auth";
 import { sequence } from "@sveltejs/kit/hooks";
 import * as Sentry from "@sentry/sveltekit";
-import { redirect } from "@sveltejs/kit";
 
 const auth: Handle = async ({ event, resolve }) => {
   // Extract user and session from cookies and Authorization header
