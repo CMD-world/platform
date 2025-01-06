@@ -9,7 +9,7 @@
 </script>
 
 <svelte:head>
-  <title>Register - MVP</title>
+  <title>Register - AI Agent</title>
 </svelte:head>
 
 <div class="flex h-screen items-center justify-center px-4">

@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-  <title>{title} - MVP</title>
+  <title>{title} - AI Agent</title>
   <meta name="description" content={description} />
   <link href="/one-dark.css" rel="stylesheet" />
 </svelte:head>

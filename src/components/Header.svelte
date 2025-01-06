@@ -22,8 +22,6 @@
 {/snippet}
 
 {#snippet menu()}
-  {@render link("Pricing", "/#pricing")}
-  {@render link("Reviews", "/#reviews")}
   {@render link("Blog", "/blog")}
 
   {#if user}

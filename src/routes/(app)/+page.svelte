@@ -9,13 +9,7 @@
 </script>
 
 <svelte:head>
-  <title>MVP</title>
+  <title>AI Agent</title>
 </svelte:head>
 
 <Hero />
-<Brands />
-<Review />
-<Pricing />
-<FAQ />
-<Reviews />
-<CTA />
