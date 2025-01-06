@@ -7,10 +7,13 @@ export const userTable = sqliteTable("user", {
   email: text().unique().notNull(),
   method: text().notNull(),
   data: text().notNull(),
-  customerId: text(),
   createdAt: integer({ mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),
+  updatedAt: integer()
+    .notNull()
+    .default(sql`(unixepoch())`)
+    .$onUpdate(() => sql`(unixepoch())`),
 });
 
 export const sessionTable = sqliteTable("session", {

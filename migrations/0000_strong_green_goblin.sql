@@ -11,8 +11,8 @@ CREATE TABLE `user` (
 	`email` text NOT NULL,
 	`method` text NOT NULL,
 	`data` text NOT NULL,
-	`customerId` text,
-	`createdAt` integer DEFAULT (unixepoch()) NOT NULL
+	`createdAt` integer DEFAULT (unixepoch()) NOT NULL,
+	`updatedAt` integer DEFAULT (unixepoch()) NOT NULL
 );
 --> statement-breakpoint
 CREATE UNIQUE INDEX `user_email_unique` ON `user` (`email`);
