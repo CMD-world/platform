@@ -2,6 +2,7 @@
   import { page } from "$app/stores";
   import { type User } from "$lib/schema";
   import Logo from "$components/Logo.svelte";
+  import PrivyLogin from "$components/PrivyLogin.svelte";
 
   // Props
   const {
@@ -25,11 +26,7 @@
   {@render link("Pricing", "/#pricing")}
   {@render link("Blog", "/blog")}
 
-  {#if user}
-    <a class="btn btn-primary" href="/dashboard">Dashboard</a>
-  {:else}
-    <a class="btn btn-primary" href="/login">Login</a>
-  {/if}
+  <PrivyLogin />
 {/snippet}
 
 <nav class="container flex items-center justify-between py-4">
