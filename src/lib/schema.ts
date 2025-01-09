@@ -14,5 +14,18 @@ export const userTable = sqliteTable("user", {
     .$onUpdate(() => sql`(unixepoch())`),
 });
 
+export const apiKeyTable = sqliteTable("apiKey", {
+  id: integer().primaryKey(),
+  userId: integer()
+    .notNull()
+    .references(() => userTable.id),
+  apiKey: text().notNull().unique(),
+  expiresAt: integer({ mode: "timestamp" }),
+  createdAt: integer({ mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
 // Types
 export type User = InferSelectModel<typeof userTable>;
+export type ApiKey = InferSelectModel<typeof apiKeyTable>;
