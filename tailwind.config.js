@@ -3,8 +3,8 @@ import tailwindcssTypography from "@tailwindcss/typography";
 import { iconsPlugin, getIconCollections } from "@egoist/tailwindcss-icons";
 
 // Brand colors
-const primary = "#38BDF8";
-const primaryContent = "#010D15";
+const primary = "#2567FF";
+const primaryContent = "#FFFFFF";
 
 // /** @type {import('tailwindcss').Config} */
 const config = {

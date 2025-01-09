@@ -1,7 +1,6 @@
 <script lang="ts">
   import Hero from "$components/Hero.svelte";
-  import Brands from "$components/Brands.svelte";
-  import Pricing from "$components/Pricing.svelte";
+  import PopularServices from "$components/PopularServices.svelte";
 </script>
 
 <svelte:head>
@@ -9,3 +8,4 @@
 </svelte:head>
 
 <Hero />
+<PopularServices />
