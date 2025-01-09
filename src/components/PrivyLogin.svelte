@@ -1,7 +1,6 @@
 <script lang="ts">
   import { hooks } from "svelte-preprocess-react";
-  import { usePrivy, useWallets } from "@privy-io/react-auth";
-  import PrivyLogout from "$components/PrivyLogout.svelte";
+  import { usePrivy } from "@privy-io/react-auth";
 
   // Privy
   const privy = hooks(() => usePrivy());

@@ -4,9 +4,16 @@
   // State
   let copied = $state(false);
   let apiKey = $state<string | undefined>();
+  let loading = $state(false);
+  let loadingVisible = $state(false);
 
   // API Key
   async function generateApiKey() {
+    loading = true;
+    const loadingTimer = setTimeout(() => {
+      loadingVisible = true;
+    }, 500);
+
     try {
       const response = await fetch("/api/keys", {
         method: "POST",
@@ -22,6 +29,9 @@
     } catch (error) {
       console.error("Error fetching keys:", error);
     }
+    clearTimeout(loadingTimer);
+    loading = false;
+    loadingVisible = false;
   }
 </script>
 
@@ -36,7 +46,12 @@
 
 <p class="p mt-4">This is the dashboard page. It's where you can see your workflows, create new ones, and manage your account.</p>
 
-<button class="btn btn-primary mt-4" onclick={generateApiKey}>Generate API Key</button>
+<button class="btn btn-primary mt-4" onclick={generateApiKey} disabled={loading}>
+  {#if loadingVisible}
+    <span class="i-lucide-loader-circle animate-spin"></span>
+  {/if}
+  Generate API Key
+</button>
 
 {#if apiKey}
   <h2 class="h2 mt-8">API Key</h2>
@@ -52,7 +67,7 @@
           if (apiKey) {
             navigator.clipboard.writeText(apiKey);
             copied = true;
-            setTimeout(() => (copied = false), 2000);
+            setTimeout(() => (copied = false), 3000);
           }
         }}
       >
