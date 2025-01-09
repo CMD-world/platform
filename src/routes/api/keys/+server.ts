@@ -11,7 +11,7 @@ export const POST: RequestHandler = async ({ locals: { user } }) => {
     .insert(apiKeyTable)
     .values({
       userId: user.id,
-      apiKey: crypto.randomBytes(32).toString("base64url"),
+      apiKey: `cmd_${crypto.randomBytes(32).toString("base64url")}`,
     })
     .returning();
   return json(apiKey);
