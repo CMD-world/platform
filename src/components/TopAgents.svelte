@@ -30,7 +30,7 @@
 
 <Section {...props} class={props.class}>
   <div class="mb-4 flex items-center justify-between">
-    <h2 class="h2">Top Agents</h2>
+    <h2 class="h2">Top agents</h2>
     <a href="#" class="link-primary font-semibold underline">View all agents</a>
   </div>
 
