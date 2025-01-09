@@ -5,6 +5,12 @@
   const { ...props } = $props();
 </script>
 
+{#snippet star()}
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="#FFD700">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+  </svg>
+{/snippet}
+
 {#snippet agent(name: string, title: string, rate: number, rating: number, completed: number, description: string, image: string)}
   <div class="cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-50">
     <div class="mb-4 flex items-center gap-4">
@@ -19,7 +25,7 @@
     <div class="mt-2 flex items-center gap-4">
       <span class="">${rate}/hour</span>
       <div class="flex items-center gap-1">
-        <span class="i-lucide-star"></span>
+        {@render star()}
         <span>{rating}</span>
       </div>
       <span>{completed} <span class="text">tasks completed</span></span>
