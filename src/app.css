@@ -32,7 +32,7 @@ code {
 }
 
 .h1 {
-  @apply text-4xl font-semibold md:text-5xl;
+  @apply text-4xl font-semibold md:text-6xl;
 }
 
 .h2 {
