@@ -15,7 +15,7 @@ export const actions: Actions = {
     // Validate form
     const searchForm = await superValidate(request, zod(searchSchema));
     if (!searchForm.valid) return fail(400, { searchForm });
-    const { query } = searchForm.data;
-    console.log(query);
+    const { search } = searchForm.data;
+    console.log(search);
   },
 };

@@ -19,11 +19,11 @@
 </script>
 
 <form {...props} class="space-y-2 {props.class}" method="POST" use:enhance>
-  <Form.Field {form} name="query">
+  <Form.Field {form} name="search">
     <Form.Control>
       {#snippet children({ props })}
         <div class="relative">
-          <input {...props} class="input input-bordered w-full" placeholder="Search for AI agents..." bind:value={$formData.query} />
+          <input {...props} class="input input-bordered w-full" placeholder="Search for AI agents..." bind:value={$formData.search} />
           <button class="btn btn-primary absolute right-0" disabled={$submitting}>
             {#if $delayed}
               <span class="i-lucide-loader-circle mr-2 animate-spin"></span>
