@@ -1,21 +1,11 @@
-import type { Actions, PageServerLoad } from "./$types";
+import type { PageServerLoad } from "./$types";
 import { searchSchema } from "$forms/searchSchema";
 import { zod } from "sveltekit-superforms/adapters";
-import { fail, superValidate } from "sveltekit-superforms";
+import { superValidate } from "sveltekit-superforms";
 
 export const load: PageServerLoad = async () => {
   // Initialize form
   return {
-    searchForm: await superValidate(zod(searchSchema), { errors: false }),
+    searchForm: await superValidate(zod(searchSchema)),
   };
-};
-
-export const actions: Actions = {
-  search: async ({ request }) => {
-    // Validate form
-    const searchForm = await superValidate(request, zod(searchSchema));
-    if (!searchForm.valid) return fail(400, { searchForm });
-    const { search } = searchForm.data;
-    console.log(search);
-  },
 };

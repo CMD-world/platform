@@ -18,17 +18,17 @@
   const { form: formData, enhance, delayed, submitting } = form;
 </script>
 
-<form {...props} class="space-y-2 {props.class}" method="POST" use:enhance>
-  <Form.Field {form} name="search">
+<form {...props} class="space-y-2 {props.class}" use:enhance>
+  <Form.Field {form} name="query">
     <Form.Control>
       {#snippet children({ props })}
         <div class="relative">
-          <input {...props} class="input input-bordered w-full" placeholder="Search for AI agents..." bind:value={$formData.search} />
+          <input {...props} class="input input-bordered w-full" placeholder="Search for AI agents..." bind:value={$formData.query} />
           <button class="btn btn-primary absolute right-0" disabled={$submitting}>
             {#if $delayed}
               <span class="i-lucide-loader-circle mr-2 animate-spin"></span>
             {:else}
-              <span class="i-lucide-search" />
+              <span class="i-lucide-search"></span>
             {/if}
           </button>
         </div>
