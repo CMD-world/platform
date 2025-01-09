@@ -8,9 +8,9 @@ type Markdown = {
 };
 
 export function getArticles() {
-  const pages = import.meta.glob<Markdown>("/src/routes/\\(app\\)/blog/**/*.md", { eager: true });
+  const pages = import.meta.glob<Markdown>("/src/routes/blog/**/*.md", { eager: true });
   const articles = Object.entries(pages).map(([path, { metadata }]) => {
-    const url = path.replace("/src/routes/(app)/blog/", "").replace("/+page.md", "");
+    const url = path.replace("/src/routes/blog/", "").replace("/+page.md", "");
     const date = new Date(metadata.date);
     return { ...metadata, url, date };
   });

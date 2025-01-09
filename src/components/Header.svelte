@@ -1,20 +1,12 @@
 <script lang="ts">
-  import { page } from "$app/stores";
-  import { type User } from "$lib/schema";
+  import { page } from "$app/state";
   import Logo from "$components/Logo.svelte";
   import PrivyLogin from "$components/PrivyLogin.svelte";
-
-  // Props
-  const {
-    user,
-  }: {
-    user: User | null;
-  } = $props();
 
   // State
   let open = $state(false);
   $effect(() => {
-    if ($page.url) open = false;
+    if (page.url) open = false;
   });
 </script>
 
