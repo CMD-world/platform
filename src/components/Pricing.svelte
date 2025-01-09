@@ -22,7 +22,7 @@
         "Up to 1000 workflow runs/month",
         "Community support",
       ]}
-      href={"/register"}
+      href={"#"}
     />
     <Price
       name="Growth"
@@ -41,7 +41,7 @@
         "Advanced analytics dashboard",
       ]}
       popular={true}
-      href={"/register"}
+      href={"#"}
     />
   </div>
 </Section>

@@ -11,7 +11,7 @@
     <p class="p mb-4">
       Create powerful AI agents in minutes using our visual workflow builder. Design, test, and deploy custom AI assistants for any task.
     </p>
-    <a class="btn btn-primary w-full md:btn-lg md:w-auto" href="/register">Build AI Agent</a>
+    <a class="btn btn-primary w-full md:btn-lg md:w-auto" href="#">Build AI Agent</a>
   </div>
 
   <img class="rounded-lg md:block" src="https://placehold.co/1200x900?text=AI Agent&font=roboto" width="1200" height="900" alt="AI Agent" />
