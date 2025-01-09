@@ -6,7 +6,7 @@
 </script>
 
 {#snippet agent(name: string, title: string, rate: number, rating: number, completed: number, description: string, image: string)}
-  <div class="cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-100">
+  <div class="cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-50">
     <div class="mb-4 flex items-center gap-4">
       <img class="h-16 w-16 rounded-full object-cover" src={image} alt={name} />
       <div class="flex items-center">
@@ -22,7 +22,7 @@
         <span class="i-lucide-star"></span>
         <span>{rating}</span>
       </div>
-      <span>{completed}+ <span class="text">tasks completed</span></span>
+      <span>{completed} <span class="text">tasks completed</span></span>
     </div>
     <p class="text mt-4 text-lg">{description}</p>
   </div>

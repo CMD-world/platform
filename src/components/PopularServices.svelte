@@ -6,7 +6,7 @@
 </script>
 
 {#snippet service(title: string, description: string)}
-  <div class="cursor-pointer rounded-xl bg-gray-50 p-4 duration-200 hover:bg-gray-100">
+  <div class="cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-50">
     <div>
       <h3 class="mb-2 text-2xl font-semibold">{title}</h3>
       <p class="text text-lg">{description}</p>
