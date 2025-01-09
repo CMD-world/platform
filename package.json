@@ -41,6 +41,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.722.0",
+    "@elizaos/core": "^0.1.7",
     "@flystorage/aws-s3": "^1.0.0",
     "@libsql/client": "^0.14.0",
     "@oslojs/encoding": "^1.1.0",

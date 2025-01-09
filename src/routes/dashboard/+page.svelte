@@ -46,6 +46,8 @@
 
 <p class="p mt-4">This is the dashboard page. It's where you can see your workflows, create new ones, and manage your account.</p>
 
+<h2 class="h2 mt-8">API Key</h2>
+
 <button class="btn btn-primary mt-4" onclick={generateApiKey} disabled={loading}>
   {#if loadingVisible}
     <span class="i-lucide-loader-circle animate-spin"></span>
@@ -54,7 +56,6 @@
 </button>
 
 {#if apiKey}
-  <h2 class="h2 mt-8">API Key</h2>
   <p class="p mt-4">
     Use this API Key to authenticate with the API by passing it as an Authorization header in your requests (Bearer token).
   </p>
