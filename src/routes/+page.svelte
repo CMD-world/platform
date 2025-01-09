@@ -1,6 +1,7 @@
 <script lang="ts">
   import Hero from "$components/Hero.svelte";
   import PopularServices from "$components/PopularServices.svelte";
+  import TopAgents from "$components/TopAgents.svelte";
 </script>
 
 <svelte:head>
@@ -8,4 +9,5 @@
 </svelte:head>
 
 <Hero />
-<PopularServices />
+<PopularServices class="mb-16" />
+<TopAgents />
