@@ -1,14 +1,18 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import "swagger-ui-dist/swagger-ui.css";
   import SwaggerUIBundle from "swagger-ui-dist/swagger-ui-bundle";
   import SwaggerUIStandalonePreset from "swagger-ui-dist/swagger-ui-standalone-preset";
 
-  onMount(async () => {
+  // Props
+  const { data } = $props();
+  const { spec } = $derived(data);
+
+  // Create SwaggerUI
+  $effect(() => {
     SwaggerUIBundle({
-      spec: await fetch("/openapi").then((body) => body.json()),
-      dom_id: "#swagger-ui",
+      spec,
       deepLinking: true,
+      dom_id: "#swagger-ui",
       plugins: [SwaggerUIBundle.plugins.DownloadUrl],
       presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
     });
