@@ -2,7 +2,9 @@ import { json, redirect, type Handle } from "@sveltejs/kit";
 import { env } from "$env/dynamic/private";
 import { sequence } from "@sveltejs/kit/hooks";
 import { getOrCreateUser } from "$lib/privy";
-import * as Sentry from "@sentry/sveltekit";
+import { createContext } from "$lib/trpc/context";
+import { router } from "$lib/trpc/router";
+import { createTRPCHandle } from "trpc-sveltekit";
 
 const auth: Handle = async ({ event, resolve }) => {
   // Get user, restrict access to certain pages
@@ -16,11 +18,4 @@ const auth: Handle = async ({ event, resolve }) => {
   return resolve(event);
 };
 
-// Setup Sentry
-Sentry.init({
-  dsn: env.SENTRY_DSN,
-  tracesSampleRate: 1.0,
-});
-
-export const handleError = Sentry.handleErrorWithSentry();
-export const handle = sequence(Sentry.sentryHandle(), auth);
+export const handle = sequence(auth, createTRPCHandle({ router, createContext }));

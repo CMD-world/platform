@@ -1,37 +1,18 @@
 <script lang="ts">
+  import { trpc } from "$lib/trpc/client";
   import PrivyLogout from "$components/PrivyLogout.svelte";
 
   // State
   let copied = $state(false);
+  let disabled = $state(false);
   let apiKey = $state<string | undefined>();
-  let loading = $state(false);
-  let loadingVisible = $state(false);
 
   // API Key
   async function generateApiKey() {
-    loading = true;
-    const loadingTimer = setTimeout(() => {
-      loadingVisible = true;
-    }, 500);
-
-    try {
-      const response = await fetch("/api/keys", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          expiresAt: null,
-        }),
-      });
-      const data = await response.json();
-      apiKey = data.apiKey;
-    } catch (error) {
-      console.error("Error fetching keys:", error);
-    }
-    clearTimeout(loadingTimer);
-    loading = false;
-    loadingVisible = false;
+    disabled = true;
+    const response = await trpc().keys.mutate();
+    apiKey = response.apiKey;
+    disabled = false;
   }
 </script>
 
@@ -48,12 +29,7 @@
 
 <h2 class="h2 mt-8">API Key</h2>
 
-<button class="btn btn-primary mt-4" onclick={generateApiKey} disabled={loading}>
-  {#if loadingVisible}
-    <span class="i-lucide-loader-circle animate-spin"></span>
-  {/if}
-  Generate API Key
-</button>
+<button class="btn btn-primary mt-4" onclick={generateApiKey} {disabled}> Generate API Key </button>
 
 {#if apiKey}
   <p class="p mt-4">

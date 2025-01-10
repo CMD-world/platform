@@ -10,7 +10,7 @@ const config = {
     mdsvex({
       extensions: [".md"],
       layout: {
-        _: "./src/components/Article.svelte",
+        _: "./src/routes/(app)/blog/Article.svelte",
       },
     }),
     vitePreprocess(),
