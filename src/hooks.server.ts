@@ -18,4 +18,4 @@ const auth: Handle = async ({ event, resolve }) => {
   return resolve(event);
 };
 
-export const handle = sequence(createTRPCHandle({ router, createContext }), auth);
+export const handle = sequence(auth, createTRPCHandle({ router, createContext }));
