@@ -4,16 +4,15 @@
   import "swagger-ui/dist/swagger-ui.css";
 
   onMount(async () => {
-    const openapi = await fetch("/openapi");
     SwaggerUI({
-      spec: await openapi.json(),
-      dom_id: "#swagger-ui-container",
+      spec: await fetch("/openapi").then((body) => body.json()),
+      dom_id: "#swagger-ui",
     });
   });
 </script>
 
 <svelte:head>
-  <title>API - AI Agent</title>
+  <title>SwaggerUI</title>
 </svelte:head>
 
-<div id="swagger-ui-container"></div>
+<div id="swagger-ui"></div>

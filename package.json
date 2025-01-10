@@ -48,7 +48,6 @@
     "@pilcrowjs/object-parser": "^0.0.4",
     "@privy-io/react-auth": "^1.99.1",
     "@privy-io/server-auth": "^1.17.2",
-    "@sentry/sveltekit": "^8.47.0",
     "@trpc/client": "^10.45.2",
     "@trpc/server": "^10.45.2",
     "@types/swagger-ui": "^3.52.4",
