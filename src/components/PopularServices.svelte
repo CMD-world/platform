@@ -18,7 +18,7 @@
 <Section {...props} class={props.class}>
   <div class="mb-4 flex items-center justify-between">
     <h2 class="h2">Popular services</h2>
-    <a href="#" class="link-primary font-semibold underline">Explore all services</a>
+    <button class="link-primary font-semibold underline">Explore all services</button>
   </div>
 
   <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">

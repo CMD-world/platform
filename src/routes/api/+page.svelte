@@ -1,6 +1,10 @@
 <script lang="ts">
   import "swagger-ui-dist/swagger-ui.css";
+
+  // @ts-ignore
   import SwaggerUIBundle from "swagger-ui-dist/swagger-ui-bundle";
+
+  // @ts-ignore
   import SwaggerUIStandalonePreset from "swagger-ui-dist/swagger-ui-standalone-preset";
 
   // Props
@@ -20,7 +24,7 @@
 </script>
 
 <svelte:head>
-  <title>Docs - AI Agent</title>
+  <title>API - AI Agent</title>
 </svelte:head>
 
 <div id="swagger-ui"></div>
