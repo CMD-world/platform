@@ -18,7 +18,7 @@
   const { form: formData, enhance, delayed, submitting } = form;
 </script>
 
-<form {...props} class="space-y-2 {props.class}" use:enhance>
+<form {...props} method="POST" class="space-y-2 {props.class}" use:enhance>
   <Form.Field {form} name="query">
     <Form.Control>
       {#snippet children({ props })}
