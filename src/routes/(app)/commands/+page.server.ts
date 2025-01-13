@@ -20,7 +20,6 @@ export const load: PageServerLoad = async ({ locals: { user } }) => {
     .leftJoin(workflowTable, eq(workflowTable.commandId, commandTable.id))
     .where(eq(commandTable.userId, user.id))
     .groupBy(commandTable.id);
-  console.log(commands);
   return {
     commands,
     commandForm: await superValidate(zod(commandSchema)),

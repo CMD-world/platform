@@ -1,6 +1,7 @@
 <script lang="ts">
   import Modal from "$components/Modal.svelte";
   import WorkflowForm from "$forms/WorkflowForm.svelte";
+  import PromptForm from "$forms/PromptForm.svelte";
 
   // Props
   const { data } = $props();
@@ -19,26 +20,15 @@
 </div>
 
 {#if workflows && workflows.length > 0}
-  <p class="p mt-4">Add workflows as needed to enhance the behaviour of your AI Agent.</p>
+  <PromptForm data={data.promptForm} action="?/prompt" />
 {:else}
   <p class="p mt-4">No workflows found. Go ahead and create one to get started.</p>
 {/if}
 
-<Modal>
-  {#snippet trigger()}
-    <button class="btn btn-primary mt-4">
-      <span class="i-lucide-plus"></span>
-      Create Workflow
-    </button>
-  {/snippet}
-  <h3 class="h3 mb-4">Create Workflow</h3>
-  <WorkflowForm data={data.workflowForm} action="?/workflow" />
-</Modal>
-
 {#if workflows && workflows.length > 0}
   <div class="mt-6 flex flex-wrap gap-6">
     {#each workflows as workflow}
-      <a href="/commands/{command.slug}/{workflow.slug}" class="card bg-base-200 p-6 transition-all hover:scale-105 hover:bg-base-300">
+      <div class="card cursor-pointer bg-base-200 p-6 transition-all hover:scale-105 hover:bg-base-300">
         <h3 class="text-lg font-semibold">{workflow.name}</h3>
 
         <div class="mt-2 flex justify-between gap-4">
@@ -60,7 +50,18 @@
             </div>
           </div>
         </div>
-      </a>
+      </div>
     {/each}
   </div>
 {/if}
+
+<Modal>
+  {#snippet trigger()}
+    <button class="btn btn-primary mt-4">
+      <span class="i-lucide-plus"></span>
+      Create Workflow
+    </button>
+  {/snippet}
+  <h3 class="h3 mb-4">Create Workflow</h3>
+  <WorkflowForm data={data.workflowForm} action="?/workflow" />
+</Modal>

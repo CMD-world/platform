@@ -14,6 +14,7 @@
   const { data, ...props }: Props = $props();
   const form = superForm(data, {
     validators: zodClient(workflowSchema),
+
     dataType: "json",
   });
   const { form: formData, errors, enhance, delayed, submitting } = form;
@@ -43,7 +44,10 @@
         <input {...props} class="input input-bordered w-full" bind:value={$formData.url} type="url" />
       {/snippet}
     </Form.Control>
-    <Form.Description class="text mt-2">Use the webhook URL from n8n.</Form.Description>
+    <Form.Description class="text mt-2"
+      >Use the webhook URL from <a class="link !underline" href="https://n8n.46.101.167.207.sslip.io/" target="_blank">n8n</a
+      >.</Form.Description
+    >
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 

@@ -4,6 +4,7 @@ import { db } from "$lib/database";
 import { commandTable, workflowTable } from "$lib/schema";
 import { eq, and } from "drizzle-orm";
 import { workflowSchema } from "$forms/workflowSchema";
+import { promptSchema } from "$forms/promptSchema";
 import { zod } from "sveltekit-superforms/adapters";
 import { superValidate } from "sveltekit-superforms";
 import { trpc } from "$lib/trpc/server";
@@ -25,6 +26,7 @@ export const load: PageServerLoad = async ({ params: { slug }, locals: { user } 
   return {
     command,
     workflows,
+    promptForm: await superValidate(zod(promptSchema)),
     workflowForm: await superValidate(zod(workflowSchema)),
   };
 };
@@ -54,6 +56,13 @@ export const actions: Actions = {
         workflow: workflowForm.data,
       }),
     );
-    throw redirect(303, `/commands/${slug}/${workflow.slug}`);
+    throw redirect(303, `/commands/${slug}`);
+  },
+  prompt: async ({ request }) => {
+    // Validate form
+    const promptForm = await superValidate(request, zod(promptSchema));
+    if (!promptForm.valid) return fail(400, { promptForm });
+    const { prompt } = promptForm.data;
+    console.log(prompt);
   },
 };
