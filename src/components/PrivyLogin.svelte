@@ -10,7 +10,7 @@
   {@const { ready, authenticated, login, connectWallet } = $privy}
   {#if ready}
     {#if authenticated}
-      <a class="btn btn-primary" href="/dashboard">Dashboard</a>
+      <a class="btn btn-primary" href="/commands">Commands</a>
     {:else}
       <button
         class="btn btn-primary"

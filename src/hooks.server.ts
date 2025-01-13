@@ -12,7 +12,7 @@ const auth: Handle = async ({ event, resolve }) => {
   if (!event.locals.user && event.url.pathname.startsWith("/api")) {
     return json({ message: "Missing API token in Authorization header or not authenticated" }, { status: 401 });
   }
-  if (!event.locals.user && event.url.pathname.startsWith("/dashboard")) {
+  if (!event.locals.user && event.url.pathname.startsWith("/commands")) {
     return redirect(303, "/");
   }
   return resolve(event);
