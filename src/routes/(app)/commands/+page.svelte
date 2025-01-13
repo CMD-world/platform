@@ -1,6 +1,5 @@
 <script lang="ts">
   import Modal from "$components/Modal.svelte";
-  import PrivyLogout from "$components/PrivyLogout.svelte";
   import CommandForm from "$forms/CommandForm.svelte";
 
   // Props
@@ -12,11 +11,7 @@
   <title>Commands - AI Agent</title>
 </svelte:head>
 
-<div class="flex items-center gap-4">
-  <h1 class="h2">Commands</h1>
-  <PrivyLogout />
-</div>
-
+<h1 class="h2">Commands</h1>
 <p class="p mt-4">Get started building your own AI Agents with commands.</p>
 
 <Modal>
