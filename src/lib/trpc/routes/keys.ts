@@ -1,26 +1,18 @@
 import crypto from "crypto";
 import { z } from "zod";
-import { t } from "$lib/trpc/t";
+import { createSelectSchema } from "drizzle-zod";
 import { db } from "$lib/database";
 import { apiKeyTable } from "$lib/schema";
-import { createSelectSchema } from "drizzle-zod";
+import { privateProcedure } from "$lib/trpc/context";
 
-export const keys = t.procedure
-  .meta({
-    openapi: {
-      method: "POST",
-      path: "/keys",
-      tags: ["API Keys"],
-      description: "Create new API Key for user.",
-    },
-  })
+export const keys = privateProcedure
   .input(z.void())
   .output(createSelectSchema(apiKeyTable))
   .mutation(async ({ ctx: { user } }) => {
     const [apiKey] = await db
       .insert(apiKeyTable)
       .values({
-        userId: user!.id,
+        userId: user.id,
         apiKey: `cmd_${crypto.randomBytes(32).toString("base64url")}`,
       })
       .returning();

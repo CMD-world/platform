@@ -12,5 +12,5 @@
 </svelte:head>
 
 <Hero {data} />
-<PopularServices class="mb-16" />
-<TopAgents />
+<PopularServices />
+<TopAgents class="mt-16" />

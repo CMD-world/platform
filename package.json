@@ -53,6 +53,7 @@
     "@types/swagger-ui": "^3.52.4",
     "@types/swagger-ui-dist": "^3.30.5",
     "arctic": "^3.0.0",
+    "change-case": "^5.4.4",
     "drizzle-orm": "^0.38.3",
     "drizzle-zod": "^0.6.1",
     "formsnap": "^2.0.0",

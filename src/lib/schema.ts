@@ -26,6 +26,19 @@ export const apiKeyTable = sqliteTable("apiKey", {
     .default(sql`(unixepoch())`),
 });
 
+export const commandTable = sqliteTable("command", {
+  id: integer().primaryKey(),
+  userId: integer()
+    .notNull()
+    .references(() => userTable.id),
+  name: text().notNull(),
+  slug: text().notNull(),
+  createdAt: integer({ mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
 // Types
 export type User = InferSelectModel<typeof userTable>;
 export type ApiKey = InferSelectModel<typeof apiKeyTable>;
+export type Command = InferSelectModel<typeof commandTable>;

@@ -107,7 +107,6 @@ async function form(name, args) {
 <form {...props} class="space-y-2 {props.class}" method="POST"${renderFormType(renderedFields)} use:enhance>
 ${renderedFields}
 
-  <input type="hidden" name="id" bind:value={$formData.id} />
   <button class="btn btn-primary w-full" disabled={$submitting}>
     {#if $delayed}
       <span class="i-lucide-loader-circle animate-spin mr-2"></span>
@@ -121,7 +120,6 @@ ${renderedFields}
   const schema = `import { z } from "zod";
 
 export const ${schemaName} = z.object({
-  id: z.number().optional(),
 ${renderedSchemaFields}
 });`;
 

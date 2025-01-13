@@ -1,10 +1,12 @@
 import { t } from "$lib/trpc/t";
 import { keys } from "$lib/trpc/routes/keys";
-import { agents } from "$lib/trpc/routes/agents";
+import { commands } from "$lib/trpc/routes/commands";
 
 export const router = t.router({
   keys,
-  agents,
+  commands,
 });
+
+export const createCaller = t.createCallerFactory(router);
 
 export type Router = typeof router;
