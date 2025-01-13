@@ -131,7 +131,7 @@ import { fail, superValidate } from "sveltekit-superforms";
 export const load: PageServerLoad = async () => {
   // Initialize form
   return {
-    ${name}Form: await superValidate(zod(${schemaName}), { errors: false }),
+    ${name}Form: await superValidate(zod(${schemaName})),
   };
 };
 

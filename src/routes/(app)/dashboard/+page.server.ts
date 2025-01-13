@@ -8,7 +8,7 @@ import { redirect } from "@sveltejs/kit";
 export const load: PageServerLoad = async () => {
   // Initialize form
   return {
-    commandForm: await superValidate(zod(commandSchema), { errors: false }),
+    commandForm: await superValidate(zod(commandSchema)),
   };
 };
 
@@ -22,6 +22,6 @@ export const actions: Actions = {
 
     // Create command then redirect to it
     const command = await trpc(event).then((client) => client.commands({ name }));
-    redirect(303, `/dashboard/commands/${command.slug}`);
+    throw redirect(303, `/dashboard/commands/${command.slug}`);
   },
 };
