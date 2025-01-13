@@ -21,8 +21,7 @@ export const load: PageServerLoad = async ({ locals: { user } }) => {
 export const actions: Actions = {
   command: async (event) => {
     // Validate form
-    const { request } = event;
-    const commandForm = await superValidate(request, zod(commandSchema));
+    const commandForm = await superValidate(event, zod(commandSchema));
     if (!commandForm.valid) return fail(400, { commandForm });
     const { name } = commandForm.data;
 

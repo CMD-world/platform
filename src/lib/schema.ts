@@ -1,3 +1,4 @@
+import type { Parameter } from "$forms/workflowSchema";
 import { sql, type InferSelectModel } from "drizzle-orm";
 import { sqliteTable, text, integer, unique } from "drizzle-orm/sqlite-core";
 
@@ -50,8 +51,8 @@ export const workflowTable = sqliteTable("workflow", {
     .notNull()
     .references(() => commandTable.id, { onDelete: "cascade" }),
   url: text().notNull(),
-  inputs: text({ mode: "json" }).notNull().default([]),
-  outputs: text({ mode: "json" }).notNull().default([]),
+  inputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
+  outputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
   createdAt: integer({ mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),

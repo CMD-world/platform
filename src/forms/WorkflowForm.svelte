@@ -14,8 +14,9 @@
   const { data, ...props }: Props = $props();
   const form = superForm(data, {
     validators: zodClient(workflowSchema),
+    dataType: "json",
   });
-  const { form: formData, enhance, delayed, submitting } = form;
+  const { form: formData, errors, enhance, delayed, submitting } = form;
 
   // Helper functions
   const addInput = () => ($formData.inputs = [...$formData.inputs, { name: "", type: "string" }]);
@@ -32,6 +33,7 @@
         <input {...props} class="input input-bordered w-full" bind:value={$formData.url} type="url" />
       {/snippet}
     </Form.Control>
+    <Form.Description class="text mt-2">Use the webhook URL from n8n.</Form.Description>
     <Form.FieldErrors class="text-error" />
   </Form.Fieldset>
 
@@ -46,6 +48,7 @@
               <input {...props} class="input input-bordered flex-1" bind:value={$formData.inputs[i].name} placeholder="Name" />
             {/snippet}
           </Form.Control>
+          <Form.FieldErrors class="mt-2 text-error" />
         </Form.Field>
 
         <Form.Field {form} name="inputs[{i}].type">
@@ -65,8 +68,8 @@
         </button>
       </div>
     {/each}
-    <Form.FieldErrors />
     <button type="button" class="btn" onclick={addInput}> Add Input </button>
+    <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 
   <Form.Fieldset {form} name="outputs">
@@ -99,8 +102,8 @@
         </button>
       </div>
     {/each}
-    <Form.FieldErrors />
     <button type="button" class="btn" onclick={addOutput}> Add Output </button>
+    <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 
   <button class="btn btn-primary w-full" disabled={$submitting}>
