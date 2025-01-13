@@ -1,5 +1,6 @@
 <script lang="ts">
   import Modal from "$components/Modal.svelte";
+  import WorkflowForm from "$forms/WorkflowForm.svelte";
 
   // Props
   const { data } = $props();
@@ -27,4 +28,5 @@
     </button>
   {/snippet}
   <h3 class="h3 mb-4">Create Workflow</h3>
+  <WorkflowForm data={data.workflowForm} action="?/workflow" />
 </Modal>
