@@ -1,5 +1,5 @@
 import type { Parameter } from "$forms/workflowSchema";
-import { sql, type InferSelectModel } from "drizzle-orm";
+import { relations, sql, type InferSelectModel } from "drizzle-orm";
 import { sqliteTable, text, integer, unique } from "drizzle-orm/sqlite-core";
 
 // Tables
@@ -45,6 +45,10 @@ export const commandTable = sqliteTable(
   }),
 );
 
+export const commandRelations = relations(commandTable, ({ many }) => ({
+  workflows: many(workflowTable),
+}));
+
 export const workflowTable = sqliteTable(
   "workflow",
   {
@@ -65,6 +69,10 @@ export const workflowTable = sqliteTable(
     uniqueCommandWorkflow: unique().on(table.commandId, table.slug),
   }),
 );
+
+export const workflowRelations = relations(workflowTable, ({ one }) => ({
+  command: one(commandTable),
+}));
 
 // Types
 export type User = InferSelectModel<typeof userTable>;
