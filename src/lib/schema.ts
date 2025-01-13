@@ -45,10 +45,6 @@ export const commandTable = sqliteTable(
   }),
 );
 
-export const commandRelations = relations(commandTable, ({ many }) => ({
-  workflows: many(workflowTable),
-}));
-
 export const workflowTable = sqliteTable(
   "workflow",
   {
@@ -69,10 +65,6 @@ export const workflowTable = sqliteTable(
     uniqueCommandWorkflow: unique().on(table.commandId, table.slug),
   }),
 );
-
-export const workflowRelations = relations(workflowTable, ({ one }) => ({
-  command: one(commandTable),
-}));
 
 // Types
 export type User = InferSelectModel<typeof userTable>;
