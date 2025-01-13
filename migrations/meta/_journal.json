@@ -43,6 +43,13 @@
       "when": 1736786221243,
       "tag": "0005_spotty_maggott",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1736787352568,
+      "tag": "0006_spooky_madrox",
+      "breakpoints": true
     }
   ]
 }

@@ -12,7 +12,12 @@
 </svelte:head>
 
 <h1 class="h2">Commands</h1>
-<p class="p mt-4">Get started building your own AI Agents with commands.</p>
+
+{#if commands && commands.length > 0}
+  <p class="p mt-4">If you want to create more AI Agents, create more commands.</p>
+{:else}
+  <p class="p mt-4">No commands found. Go ahead and create a command which will contain multiple workflows.</p>
+{/if}
 
 <Modal>
   {#snippet trigger()}

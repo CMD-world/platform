@@ -1,3 +1,4 @@
+import { kebabCase } from "change-case";
 import { z } from "zod";
 import { db } from "$lib/database";
 import { workflowTable } from "$lib/schema";
@@ -26,6 +27,8 @@ export const workflows = privateProcedure
       .insert(workflowTable)
       .values({
         commandId,
+        name: workflow.name,
+        slug: kebabCase(workflow.name),
         url: workflow.url,
         inputs: workflow.inputs,
         outputs: workflow.outputs,

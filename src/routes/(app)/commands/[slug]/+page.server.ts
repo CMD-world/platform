@@ -1,7 +1,7 @@
 import type { Actions, PageServerLoad } from "./$types";
 import { error, fail, redirect } from "@sveltejs/kit";
 import { db } from "$lib/database";
-import { commandTable } from "$lib/schema";
+import { commandTable, workflowTable } from "$lib/schema";
 import { eq, and } from "drizzle-orm";
 import { workflowSchema } from "$forms/workflowSchema";
 import { zod } from "sveltekit-superforms/adapters";
@@ -16,10 +16,15 @@ export const load: PageServerLoad = async ({ params: { slug }, locals: { user } 
     .from(commandTable)
     .where(and(eq(commandTable.slug, slug), eq(commandTable.userId, user.id)));
   if (commands.length == 0) error(404);
+  const command = commands[0];
+
+  // Get workflows
+  const workflows = await db.select().from(workflowTable).where(eq(workflowTable.commandId, command.id));
 
   // Initialize form
   return {
-    command: commands[0],
+    command,
+    workflows,
     workflowForm: await superValidate(zod(workflowSchema)),
   };
 };
@@ -49,6 +54,6 @@ export const actions: Actions = {
         workflow: workflowForm.data,
       }),
     );
-    throw redirect(303, `/commands/${slug}/${workflow.id}`);
+    throw redirect(303, `/commands/${slug}/${workflow.slug}`);
   },
 };

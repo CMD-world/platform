@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { createSelectSchema } from "drizzle-zod";
 
 const parameterSchema = z.object({
   name: z.string().min(1, { message: "Name can't be empty" }),
@@ -7,6 +6,7 @@ const parameterSchema = z.object({
 });
 
 export const workflowSchema = z.object({
+  name: z.string().min(1, { message: "Name can't be empty" }),
   url: z.string().url({ message: "Invalid URL" }),
   inputs: z
     .array(parameterSchema)

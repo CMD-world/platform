@@ -45,18 +45,26 @@ export const commandTable = sqliteTable(
   }),
 );
 
-export const workflowTable = sqliteTable("workflow", {
-  id: integer().primaryKey(),
-  commandId: integer()
-    .notNull()
-    .references(() => commandTable.id, { onDelete: "cascade" }),
-  url: text().notNull(),
-  inputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
-  outputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
-  createdAt: integer({ mode: "timestamp" })
-    .notNull()
-    .default(sql`(unixepoch())`),
-});
+export const workflowTable = sqliteTable(
+  "workflow",
+  {
+    id: integer().primaryKey(),
+    commandId: integer()
+      .notNull()
+      .references(() => commandTable.id, { onDelete: "cascade" }),
+    url: text().notNull(),
+    inputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
+    outputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
+    name: text().notNull(),
+    slug: text().notNull(),
+    createdAt: integer({ mode: "timestamp" })
+      .notNull()
+      .default(sql`(unixepoch())`),
+  },
+  (table) => ({
+    uniqueCommandWorkflow: unique().on(table.commandId, table.slug),
+  }),
+);
 
 // Types
 export type User = InferSelectModel<typeof userTable>;

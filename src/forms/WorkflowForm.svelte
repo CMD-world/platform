@@ -26,6 +26,16 @@
 </script>
 
 <form {...props} class="space-y-4 {props.class}" method="POST" use:enhance>
+  <Form.Fieldset {form} name="name">
+    <Form.Control>
+      {#snippet children({ props })}
+        <Form.Label class="label">Name</Form.Label>
+        <input {...props} class="input input-bordered w-full" bind:value={$formData.name} type="text" />
+      {/snippet}
+    </Form.Control>
+    <Form.FieldErrors class="mt-2 text-error" />
+  </Form.Fieldset>
+
   <Form.Fieldset {form} name="url">
     <Form.Control>
       {#snippet children({ props })}
@@ -34,7 +44,7 @@
       {/snippet}
     </Form.Control>
     <Form.Description class="text mt-2">Use the webhook URL from n8n.</Form.Description>
-    <Form.FieldErrors class="text-error" />
+    <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 
   <Form.Fieldset {form} name="inputs">
@@ -48,7 +58,6 @@
               <input {...props} class="input input-bordered flex-1" bind:value={$formData.inputs[i].name} placeholder="Name" />
             {/snippet}
           </Form.Control>
-          <Form.FieldErrors class="mt-2 text-error" />
         </Form.Field>
 
         <Form.Field {form} name="inputs[{i}].type">
@@ -63,7 +72,7 @@
           </Form.Control>
         </Form.Field>
 
-        <button type="button" class="btn btn-square btn-error" onclick={() => removeInput(i)}>
+        <button type="button" class="btn btn-square btn-error" aria-label="Remove" onclick={() => removeInput(i)}>
           <span class="i-lucide-trash-2"></span>
         </button>
       </div>
@@ -97,7 +106,7 @@
           </Form.Control>
         </Form.Field>
 
-        <button type="button" class="btn btn-square btn-error" onclick={() => removeOutput(i)}>
+        <button type="button" class="btn btn-square btn-error" aria-label="Remove" onclick={() => removeOutput(i)}>
           <span class="i-lucide-trash-2"></span>
         </button>
       </div>
