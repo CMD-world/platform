@@ -18,7 +18,10 @@
 
 <h2 class="h3 mt-8">Commands</h2>
 
-<p class="p mt-4">Build automated workflows to power your AI agents.</p>
+<p class="p mt-4">
+  Build your own AI Agents using Commands and start earning money. Create custom AI assistants by defining their capabilities and knowledge
+  to automate tasks and workflows.
+</p>
 <a href="/dashboard/commands" class="btn btn-primary mt-4">
   <span class="i-lucide-plus"></span>
   Create New Command
