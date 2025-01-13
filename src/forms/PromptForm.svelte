@@ -10,10 +10,18 @@
     data: SuperValidated<Infer<typeof promptSchema>>;
   } & HTMLFormAttributes;
 
+  // State
+  let output = $state<string | undefined>();
+
   // Forms
   const { data, ...props }: Props = $props();
   const form = superForm(data, {
     validators: zodClient(promptSchema),
+    onResult: ({ result }) => {
+      if (result.type == "success") {
+        output = result.data?.message;
+      }
+    },
   });
   const { form: formData, enhance, delayed, submitting } = form;
 </script>
@@ -38,3 +46,11 @@
     Send message
   </button>
 </form>
+
+{#if output}
+  <div class="mt-4 rounded-lg bg-base-200 p-4">
+    <div class="prose prose-neutral max-w-none">
+      {@html output}
+    </div>
+  </div>
+{/if}

@@ -8,6 +8,7 @@ import { promptSchema } from "$forms/promptSchema";
 import { zod } from "sveltekit-superforms/adapters";
 import { superValidate } from "sveltekit-superforms";
 import { trpc } from "$lib/trpc/server";
+import { openai } from "$lib/openai";
 
 export const load: PageServerLoad = async ({ params: { slug }, locals: { user } }) => {
   // Get command
@@ -63,6 +64,16 @@ export const actions: Actions = {
     const promptForm = await superValidate(request, zod(promptSchema));
     if (!promptForm.valid) return fail(400, { promptForm });
     const { prompt } = promptForm.data;
-    console.log(prompt);
+
+    // Send prompt to LLM
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "user", content: prompt }],
+    });
+    const message = response.choices.length > 0 ? response.choices[0].message.content : null;
+    return {
+      message,
+      promptForm,
+    };
   },
 };

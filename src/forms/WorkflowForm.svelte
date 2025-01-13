@@ -14,7 +14,6 @@
   const { data, ...props }: Props = $props();
   const form = superForm(data, {
     validators: zodClient(workflowSchema),
-
     dataType: "json",
   });
   const { form: formData, errors, enhance, delayed, submitting } = form;

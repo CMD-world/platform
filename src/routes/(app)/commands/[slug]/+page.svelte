@@ -26,7 +26,9 @@
 {/if}
 
 {#if workflows && workflows.length > 0}
-  <div class="mt-6 flex flex-wrap gap-6">
+  <h1 class="h2 mt-6">Workflows</h1>
+
+  <div class="mt-4 flex flex-wrap gap-6">
     {#each workflows as workflow}
       <div class="card cursor-pointer bg-base-200 p-6 transition-all hover:scale-105 hover:bg-base-300">
         <h3 class="text-lg font-semibold">{workflow.name}</h3>
