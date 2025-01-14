@@ -22,8 +22,8 @@
     dataType: "json",
     validators: zodClient(workflowSchema),
     resetForm: false,
-    onResult: ({ result }) => {
-      if (result.type == "success") modal.close();
+    onResult: ({ result: { type } }) => {
+      if (type == "success") modal.close();
     },
   });
   const { form: formData, enhance, delayed, submitting } = form;
