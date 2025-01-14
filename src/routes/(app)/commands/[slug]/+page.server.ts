@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import { error, fail, redirect } from "@sveltejs/kit";
 import { db } from "$lib/database";
 import { commandTable, workflowTable } from "$lib/schema";
-import { eq, and } from "drizzle-orm";
+import { eq, and, desc } from "drizzle-orm";
 import { workflowSchema } from "$forms/workflowSchema";
 import { promptSchema } from "$forms/promptSchema";
 import { zod } from "sveltekit-superforms/adapters";
@@ -11,7 +11,7 @@ import { trpc } from "$lib/trpc/server";
 import { openai } from "$lib/openai";
 
 export const load: PageServerLoad = async ({ params: { slug }, locals: { user } }) => {
-  // Get command
+  // Get command and workflows
   if (!user) error(401);
   const commands = await db
     .select()
@@ -19,9 +19,11 @@ export const load: PageServerLoad = async ({ params: { slug }, locals: { user } 
     .where(and(eq(commandTable.slug, slug), eq(commandTable.userId, user.id)));
   if (commands.length == 0) error(404);
   const command = commands[0];
-
-  // Get workflows
-  const workflows = await db.select().from(workflowTable).where(eq(workflowTable.commandId, command.id));
+  const workflows = await db
+    .select()
+    .from(workflowTable)
+    .where(eq(workflowTable.commandId, command.id))
+    .orderBy(desc(workflowTable.createdAt));
 
   // Initialize form
   return {
@@ -41,6 +43,7 @@ export const actions: Actions = {
     } = event;
     const workflowForm = await superValidate(event, zod(workflowSchema));
     if (!workflowForm.valid) return fail(400, { workflowForm });
+    const workflow = workflowForm.data;
 
     // Get command id
     if (!user) error(401);
@@ -51,13 +54,17 @@ export const actions: Actions = {
     if (commands.length == 0) error(403);
     const command = commands[0];
 
-    // Create or update workflow and redirect to it
-    await trpc(event).then((client) =>
-      client.workflows({
-        commandId: command.id,
-        workflow: workflowForm.data,
-      }),
-    );
+    // Update or create workflow
+    await trpc(event).then((client) => {
+      if (workflow.id) {
+        client.workflows.update(workflow);
+      } else {
+        client.workflows.create({
+          commandId: command.id,
+          workflow,
+        });
+      }
+    });
     return { workflowForm };
   },
   prompt: async ({ request, params: { slug }, locals: { user } }) => {

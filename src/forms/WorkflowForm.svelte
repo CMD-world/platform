@@ -4,8 +4,8 @@
   import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
   import { zodClient } from "sveltekit-superforms/adapters";
   import { types, workflowSchema } from "./workflowSchema";
-  import type { Workflow } from "$lib/schema";
   import { getContext } from "svelte";
+  import type { Workflow } from "$lib/schema";
 
   // Props
   type Props = {

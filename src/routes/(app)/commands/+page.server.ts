@@ -34,7 +34,7 @@ export const actions: Actions = {
     const { name } = commandForm.data;
 
     // Create command then redirect to it
-    const command = await trpc(event).then((client) => client.commands({ name }));
+    const command = await trpc(event).then((client) => client.commands.create({ name }));
     throw redirect(303, `/commands/${command.slug}`);
   },
 };
