@@ -5,7 +5,8 @@ import { env } from "$env/dynamic/private";
 // Create client
 export const openai = observeOpenAI(
   new OpenAI({
-    apiKey: env.OPENAI_API_KEY,
+    baseURL: "https://api.fireworks.ai/inference/v1",
+    apiKey: env.FIREWORKS_API_KEY,
   }),
   {
     clientInitParams: {

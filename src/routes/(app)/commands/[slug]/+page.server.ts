@@ -122,7 +122,7 @@ export const actions: Actions = {
     `;
 
     const analysis = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "accounts/fireworks/models/deepseek-v3",
       messages: [{ role: "user", content: analysisPrompt }],
     });
     const workflowAnalysis = JSON.parse(analysis.choices[0].message.content || "{}");
@@ -157,7 +157,7 @@ export const actions: Actions = {
       `;
 
       const failureResponse = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "accounts/fireworks/models/deepseek-v3",
         messages: [{ role: "user", content: failurePrompt }],
       });
 
@@ -198,7 +198,7 @@ export const actions: Actions = {
     `;
 
     const finalResponse = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "accounts/fireworks/models/deepseek-v3",
       messages: [{ role: "user", content: finalPrompt }],
     });
 
