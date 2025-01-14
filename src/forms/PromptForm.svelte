@@ -16,6 +16,7 @@
   // Forms
   const { data, ...props }: Props = $props();
   const form = superForm(data, {
+    resetForm: false,
     validators: zodClient(promptSchema),
     onResult: ({ result }) => {
       if (result.type == "success") {

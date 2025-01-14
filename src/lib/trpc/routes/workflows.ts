@@ -6,7 +6,7 @@ import { workflowTable, commandTable } from "$lib/schema";
 import { createSelectSchema } from "drizzle-zod";
 import { workflowSchema } from "$forms/workflowSchema";
 import { privateProcedure } from "$lib/trpc/context";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 
 export const workflows = t.router({

@@ -84,29 +84,41 @@ export const actions: Actions = {
     const workflows = await db.select().from(workflowTable).where(eq(workflowTable.commandId, command.id));
 
     // Ask LLM to analyze prompt and select workflow + extract inputs
+    const workflowExamples = JSON.stringify(
+      workflows.map((w) => ({
+        name: w.name,
+        inputs: w.inputs,
+        outputs: w.outputs,
+      })),
+      null,
+      2,
+    );
     const analysisPrompt = `
       Given these available workflows:
-      ${JSON.stringify(
-        workflows.map((w) => ({
-          name: w.name,
-          inputs: w.inputs,
-          outputs: w.outputs,
-        })),
-      )}
+      ${workflowExamples}
 
       And this user prompt: "${prompt}"
 
-      Please analyze and return a JSON response in this format:
+      Strictly analyze and return a JSON response. BE CONSERVATIVE in matching - if there is ANY doubt or missing information, return null.
+
+      Required format:
       {
-        "workflow": "name of the most suitable workflow or null if none matches",
+        "workflow": "name of the most suitable workflow or null if ANY uncertainty",
         "inputs": {
-          // extracted input values based on the selected workflow's required inputs, must match exactly the same format
+          // extracted input values - must EXACTLY match the workflow's required inputs
+          // if ANY required input is missing or unclear, return null instead
         },
       }
 
-      Only return this JSON response and nothing else, even without code blocks.
-      It must be exactly what a JSON parser would expect.
-      If there's no matching workflow, return null.
+      Rules:
+      - Return null unless there is a PERFECT match with ALL required inputs
+      - No partial matches allowed
+      - Missing or ambiguous inputs = null
+      - Only exact workflow name matches
+      - Must be valid JSON parseable
+      - No additional text or code blocks
+
+      If in doubt, return null.
     `;
 
     const analysis = await openai.chat.completions.create({
@@ -118,11 +130,45 @@ export const actions: Actions = {
 
     // Get the selected workflow
     const selectedWorkflow = workflows.find((w) => w.name === workflowAnalysis.workflow);
-    if (!selectedWorkflow) return setError(promptForm, "prompt", "There was an error identifying the workflow.");
+    if (!selectedWorkflow) {
+      // Generate a failure response
+      const failurePrompt = `
+        The user asked: "${prompt}"
+
+        Given these workflows and their required inputs:
+        ${workflowExamples}
+
+        First, try to determine if the user's prompt partially matches any workflow but is missing some required inputs.
+        Then, provide a brief, friendly response in clean HTML format that either:
+
+        1. If there's a partial match:
+           Create a response with:
+           - A <p> explaining which workflow they were trying to use
+           - A <ul> listing the specific required inputs that are missing
+
+        2. If there's no match at all:
+           Create a response with:
+           - A <p> explaining we couldn't process their request
+           - A <ul> listing the available workflows
+
+        Use only basic HTML tags (<p>, <ul>, <li>).
+        No markdown or complex formatting.
+        Keep the response brief and actionable.
+      `;
+
+      const failureResponse = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: [{ role: "user", content: failurePrompt }],
+      });
+
+      return {
+        message: failureResponse.choices[0].message.content,
+        promptForm,
+      };
+    }
 
     // Call the workflow URL with extracted inputs
-    console.log(selectedWorkflow.url);
-    console.log(workflowAnalysis.inputs);
+    console.info("Calling this workflow:", selectedWorkflow);
     const response = await fetch(selectedWorkflow.url, {
       method: "POST",
       headers: {
@@ -136,6 +182,7 @@ export const actions: Actions = {
 
     // Generate final response using workflow result as context
     const workflowResult = await response.json();
+    console.info("Got result:", workflowResult);
     const finalPrompt = `
       Given:
       - Original user prompt: "${prompt}"
@@ -143,9 +190,11 @@ export const actions: Actions = {
       - Workflow result: ${JSON.stringify(workflowResult)}
       - Workflow outputs schema: ${JSON.stringify(selectedWorkflow.outputs)}
 
-      Please provide a helpful response that incorporates the workflow results.
-      Don't use any codeblocks or anything, just return simple HTML.
-      Keep the response brief and to the point.
+      Create a helpful response that incorporates the workflow results using only basic HTML tags (<p>, <ul>, <li>).
+      Do not use markdown, code blocks or complex formatting.
+      Keep the response brief and format it as clean, simple HTML.
+      Structure the response with proper paragraphs using <p> tags.
+      If you need a list, use <ul> and <li> tags.
     `;
 
     const finalResponse = await openai.chat.completions.create({
@@ -154,7 +203,7 @@ export const actions: Actions = {
     });
 
     return {
-      message: finalResponse.choices[0].message.content,
+      message: finalResponse.choices[0].message.content?.trim(),
       promptForm,
     };
   },
