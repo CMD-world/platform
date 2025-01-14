@@ -47,9 +47,7 @@
       "indexes": {
         "apiKey_apiKey_unique": {
           "name": "apiKey_apiKey_unique",
-          "columns": [
-            "apiKey"
-          ],
+          "columns": ["apiKey"],
           "isUnique": true
         }
       },
@@ -58,12 +56,8 @@
           "name": "apiKey_userId_user_id_fk",
           "tableFrom": "apiKey",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -115,10 +109,7 @@
       "indexes": {
         "command_userId_slug_unique": {
           "name": "command_userId_slug_unique",
-          "columns": [
-            "userId",
-            "slug"
-          ],
+          "columns": ["userId", "slug"],
           "isUnique": true
         }
       },
@@ -127,12 +118,8 @@
           "name": "command_userId_user_id_fk",
           "tableFrom": "command",
           "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["userId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -234,12 +221,8 @@
           "name": "workflow_commandId_command_id_fk",
           "tableFrom": "workflow",
           "tableTo": "command",
-          "columnsFrom": [
-            "commandId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["commandId"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
