@@ -23,8 +23,8 @@
     validators: zodClient(workflowSchema),
     resetForm: workflow ? false : true,
     id: workflow ? `update_${workflow.id}` : "create",
-    onResult: ({ result: { type } }) => {
-      if (type == "success") modal.close();
+    onResult: ({ result }) => {
+      if (result.type == "success") modal.close();
     },
   });
   const { form: formData, enhance, delayed, submitting } = form;
