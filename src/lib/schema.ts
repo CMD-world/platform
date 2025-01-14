@@ -1,5 +1,5 @@
 import type { Parameter } from "$forms/workflowSchema";
-import { relations, sql, type InferSelectModel } from "drizzle-orm";
+import { sql, type InferSelectModel } from "drizzle-orm";
 import { sqliteTable, text, integer, unique } from "drizzle-orm/sqlite-core";
 
 // Tables

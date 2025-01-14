@@ -51,14 +51,14 @@ export const actions: Actions = {
     if (commands.length == 0) error(403);
     const command = commands[0];
 
-    // Create workflow and redirect to it
-    const workflow = await trpc(event).then((client) =>
+    // Create or update workflow and redirect to it
+    await trpc(event).then((client) =>
       client.workflows({
         commandId: command.id,
         workflow: workflowForm.data,
       }),
     );
-    throw redirect(303, `/commands/${slug}`);
+    return { workflowForm };
   },
   prompt: async ({ request, params: { slug }, locals: { user } }) => {
     // Validate form

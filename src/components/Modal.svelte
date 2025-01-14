@@ -1,9 +1,12 @@
 <script lang="ts">
+  import { setContext } from "svelte";
+
   // Props
   const { trigger, children, ...props } = $props();
 
   // State
   let modal = $state<HTMLDialogElement>();
+  setContext("modal", { close: () => modal?.close() });
 </script>
 
 {#if trigger}

@@ -4,19 +4,32 @@
   import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
   import { zodClient } from "sveltekit-superforms/adapters";
   import { types, workflowSchema } from "./workflowSchema";
+  import type { Workflow } from "$lib/schema";
+  import { getContext } from "svelte";
 
   // Props
   type Props = {
+    workflow?: Workflow;
     data: SuperValidated<Infer<typeof workflowSchema>>;
   } & HTMLFormAttributes;
 
+  // State
+  const modal = getContext<{ close: () => void }>("modal");
+
   // Forms
-  const { data, ...props }: Props = $props();
+  const { workflow, data, ...props }: Props = $props();
   const form = superForm(data, {
-    validators: zodClient(workflowSchema),
     dataType: "json",
+    validators: zodClient(workflowSchema),
+    resetForm: false,
+    onResult: ({ result }) => {
+      if (result.type == "success") modal.close();
+    },
   });
-  const { form: formData, errors, enhance, delayed, submitting } = form;
+  const { form: formData, enhance, delayed, submitting } = form;
+
+  // If workflow is passed, initialize data with that
+  if (workflow) $formData = workflow;
 
   // Helper functions
   const addInput = () => ($formData.inputs = [...$formData.inputs, { name: "", type: "string" }]);
@@ -122,6 +135,10 @@
     {#if $delayed}
       <span class="i-lucide-loader-circle mr-2 animate-spin"></span>
     {/if}
-    Create Workflow
+    {#if workflow}
+      Update Workflow
+    {:else}
+      Create Workflow
+    {/if}
   </button>
 </form>

@@ -6,6 +6,7 @@ const parameterSchema = z.object({
 });
 
 export const workflowSchema = z.object({
+  id: z.number().optional(),
   name: z.string().min(1, { message: "Name can't be empty" }),
   url: z.string().url({ message: "Invalid URL" }),
   inputs: z

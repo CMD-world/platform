@@ -2,6 +2,7 @@
   import Modal from "$components/Modal.svelte";
   import WorkflowForm from "$forms/WorkflowForm.svelte";
   import PromptForm from "$forms/PromptForm.svelte";
+  import Workflow from "./Workflow.svelte";
 
   // Props
   const { data } = $props();
@@ -30,29 +31,13 @@
 
   <div class="mt-4 flex flex-wrap gap-6">
     {#each workflows as workflow}
-      <div class="card cursor-pointer bg-base-200 p-6 transition-all hover:scale-105 hover:bg-base-300">
-        <h3 class="text-lg font-semibold">{workflow.name}</h3>
-
-        <div class="mt-2 flex justify-between gap-4">
-          <div class="flex-1">
-            <div class="mb-1 text-sm font-medium">Inputs</div>
-            <div class="mt-2 flex flex-wrap gap-2">
-              {#each workflow.inputs as input}
-                <span class="badge badge-primary whitespace-nowrap text-xs">{input.name}: {input.type}</span>
-              {/each}
-            </div>
-          </div>
-
-          <div class="flex-1">
-            <div class="mb-1 text-sm font-medium">Outputs</div>
-            <div class="mt-2 flex flex-wrap gap-2">
-              {#each workflow.outputs as output}
-                <span class="badge badge-primary whitespace-nowrap text-xs">{output.name}: {output.type}</span>
-              {/each}
-            </div>
-          </div>
-        </div>
-      </div>
+      <Modal>
+        {#snippet trigger()}
+          <Workflow {workflow} />
+        {/snippet}
+        <h3 class="h3 mb-4">Update Workflow</h3>
+        <WorkflowForm {workflow} data={data.workflowForm} action="?/workflow" />
+      </Modal>
     {/each}
   </div>
 {/if}
@@ -65,5 +50,5 @@
     </button>
   {/snippet}
   <h3 class="h3 mb-4">Create Workflow</h3>
-  <WorkflowForm data={data.workflowForm} action="?/workflow" />
+  <WorkflowForm onclose={() => console.log("hey")} data={data.workflowForm} action="?/workflow" />
 </Modal>

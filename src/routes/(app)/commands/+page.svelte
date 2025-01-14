@@ -1,6 +1,7 @@
 <script lang="ts">
   import Modal from "$components/Modal.svelte";
   import CommandForm from "$forms/CommandForm.svelte";
+  import Command from "./Command.svelte";
 
   // Props
   const { data } = $props();
@@ -20,12 +21,7 @@
 {#if commands && commands.length > 0}
   <div class="mt-6 flex flex-wrap gap-6">
     {#each commands as { command, workflows }}
-      <a href="/commands/{command.slug}" class="card min-w-[240px] bg-base-200 p-6 transition-all hover:scale-105 hover:bg-base-300">
-        <div class="flex flex-col gap-2">
-          <h3 class="text-lg font-semibold">{command.name}</h3>
-          <div class="text-sm opacity-70">{workflows} workflows</div>
-        </div>
-      </a>
+      <Command {command} {workflows} />
     {/each}
   </div>
 {/if}
