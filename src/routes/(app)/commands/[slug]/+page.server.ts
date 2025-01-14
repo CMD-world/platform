@@ -177,7 +177,8 @@ export const actions: Actions = {
       body: JSON.stringify(workflowAnalysis.inputs),
     });
     if (!response.ok) {
-      return setError(promptForm, "prompt", `Workflow request failed: ${response.statusText}`);
+      console.info(response);
+      return setError(promptForm, "prompt", `Error occurred while calling workflow "${selectedWorkflow.name}": ${response.statusText}`);
     }
 
     // Generate final response using workflow result as context
