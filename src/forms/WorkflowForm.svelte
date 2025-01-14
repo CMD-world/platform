@@ -21,7 +21,7 @@
   const form = superForm(data, {
     dataType: "json",
     validators: zodClient(workflowSchema),
-    resetForm: false,
+    resetForm: workflow ? false : true,
     onResult: ({ result: { type } }) => {
       if (type == "success") modal.close();
     },

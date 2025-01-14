@@ -4,7 +4,7 @@
   import PromptForm from "$forms/PromptForm.svelte";
   import Workflow from "./Workflow.svelte";
   import { trpc } from "$lib/trpc/client";
-  import { getContext } from "svelte";
+  import { invalidateAll } from "$app/navigation";
 
   // Props
   const { data } = $props();
@@ -15,7 +15,8 @@
   async function deleteWorkflow(workflowId: number) {
     deletingWorkflow = true;
     await trpc().workflows.delete.mutate({ id: workflowId });
-    window.location.reload();
+    deletingWorkflow = false;
+    invalidateAll();
   }
 </script>
 
@@ -66,5 +67,5 @@
     </button>
   {/snippet}
   <h3 class="h3 mb-4">Create Workflow</h3>
-  <WorkflowForm onclose={() => console.log("hey")} data={data.workflowForm} action="?/workflow" />
+  <WorkflowForm data={data.workflowForm} action="?/workflow" />
 </Modal>
