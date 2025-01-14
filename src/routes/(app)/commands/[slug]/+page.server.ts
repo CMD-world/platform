@@ -2,7 +2,7 @@ import type { Actions, PageServerLoad } from "./$types";
 import { error, fail, redirect } from "@sveltejs/kit";
 import { db } from "$lib/database";
 import { commandTable, workflowTable } from "$lib/schema";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, asc } from "drizzle-orm";
 import { workflowSchema } from "$forms/workflowSchema";
 import { promptSchema } from "$forms/promptSchema";
 import { zod } from "sveltekit-superforms/adapters";
@@ -23,7 +23,7 @@ export const load: PageServerLoad = async ({ params: { slug }, locals: { user } 
     .select()
     .from(workflowTable)
     .where(eq(workflowTable.commandId, command.id))
-    .orderBy(desc(workflowTable.createdAt));
+    .orderBy(asc(workflowTable.createdAt));
 
   // Initialize form
   return {

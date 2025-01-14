@@ -12,11 +12,15 @@
 
   // Helpers
   let deletingWorkflow = $state(false);
-  async function deleteWorkflow(workflowId: number) {
-    deletingWorkflow = true;
-    await trpc().workflows.delete.mutate({ id: workflowId });
-    deletingWorkflow = false;
-    invalidateAll();
+  async function deleteWorkflow(workflowId: number, modal: HTMLDialogElement) {
+    try {
+      deletingWorkflow = true;
+      await trpc().workflows.delete.mutate({ id: workflowId });
+      modal.close();
+      await invalidateAll();
+    } finally {
+      deletingWorkflow = false;
+    }
   }
 </script>
 
@@ -46,14 +50,16 @@
         {#snippet trigger()}
           <Workflow {workflow} />
         {/snippet}
-        <div class="mb-4 flex items-center gap-4">
-          <h3 class="h3">Update Workflow</h3>
-          <button class="btn btn-error" onclick={() => deleteWorkflow(workflow.id)} disabled={deletingWorkflow}>
-            <span class="i-lucide-trash-2"></span>
-            Delete
-          </button>
-        </div>
-        <WorkflowForm {workflow} data={data.workflowForm} action="?/workflow" />
+        {#snippet content(modal: HTMLDialogElement)}
+          <div class="mb-4 flex items-center gap-4">
+            <h3 class="h3">Update Workflow</h3>
+            <button class="btn btn-error" onclick={() => deleteWorkflow(workflow.id, modal)} disabled={deletingWorkflow}>
+              <span class="i-lucide-trash-2"></span>
+              Delete
+            </button>
+          </div>
+          <WorkflowForm {workflow} data={data.workflowForm} action="?/workflow" />
+        {/snippet}
       </Modal>
     {/each}
   </div>
@@ -66,6 +72,8 @@
       Create Workflow
     </button>
   {/snippet}
-  <h3 class="h3 mb-4">Create Workflow</h3>
-  <WorkflowForm data={data.workflowForm} action="?/workflow" />
+  {#snippet content()}
+    <h3 class="h3 mb-4">Create Workflow</h3>
+    <WorkflowForm data={data.workflowForm} action="?/workflow" />
+  {/snippet}
 </Modal>

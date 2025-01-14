@@ -15,7 +15,7 @@
 <h1 class="h2">Commands</h1>
 
 {#if commands && commands.length == 0}
-  <p class="p mt-4">No commands found. Go ahead and create a command which will contain multiple workflows.</p>
+  <p class="p mt-4">No commands found. Go ahead and create one.</p>
 {/if}
 
 {#if commands && commands.length > 0}
@@ -33,6 +33,8 @@
       Create Command
     </button>
   {/snippet}
-  <h3 class="h3 mb-4">Create Command</h3>
-  <CommandForm data={data.commandForm} action="?/command" />
+  {#snippet content()}
+    <h3 class="h3 mb-4">Create Command</h3>
+    <CommandForm data={data.commandForm} action="?/command" />
+  {/snippet}
 </Modal>

@@ -22,14 +22,17 @@
     dataType: "json",
     validators: zodClient(workflowSchema),
     resetForm: workflow ? false : true,
+    id: workflow ? `update_${workflow.id}` : "create",
     onResult: ({ result: { type } }) => {
       if (type == "success") modal.close();
     },
   });
   const { form: formData, enhance, delayed, submitting } = form;
 
-  // If workflow is passed, initialize data with that
-  if (workflow) $formData = workflow;
+  // If workflow is passed/updated, initialize data with that
+  $effect(() => {
+    if (workflow) $formData = workflow;
+  });
 
   // Helper functions
   const addInput = () => ($formData.inputs = [...$formData.inputs, { name: "", type: "string" }]);
@@ -93,7 +96,7 @@
         </button>
       </div>
     {/each}
-    <button type="button" class="btn" onclick={addInput}> Add Input </button>
+    <button type="button" class="btn" onclick={addInput}><span class="i-lucide-plus"></span> Add Input </button>
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 
@@ -127,7 +130,7 @@
         </button>
       </div>
     {/each}
-    <button type="button" class="btn" onclick={addOutput}> Add Output </button>
+    <button type="button" class="btn" onclick={addOutput}><span class="i-lucide-plus"></span> Add Output </button>
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 

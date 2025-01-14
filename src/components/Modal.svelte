@@ -2,7 +2,7 @@
   import { setContext } from "svelte";
 
   // Props
-  const { trigger, children, ...props } = $props();
+  const { trigger, content, ...props } = $props();
 
   // State
   let modal = $state<HTMLDialogElement>();
@@ -11,7 +11,7 @@
 
 {#if trigger}
   <button onclick={() => modal?.showModal()}>
-    {@render trigger()}
+    {@render trigger(modal)}
   </button>
 
   <dialog {...props} class="modal {props.class}" bind:this={modal}>
@@ -21,7 +21,7 @@
           <span class="i-lucide-x"></span>
         </button>
       </form>
-      {@render children()}
+      {@render content(modal)}
     </div>
 
     <form class="modal-backdrop" method="dialog">
