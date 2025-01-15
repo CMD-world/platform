@@ -2,10 +2,17 @@
   import Modal from "$components/Modal.svelte";
   import CommandForm from "$forms/CommandForm.svelte";
   import Command from "./Command.svelte";
+  import { trpc } from "$lib/trpc/client";
 
   // Props
   const { data } = $props();
   const { commands } = $derived(data);
+
+  // Helpers
+  async function createMachine() {
+    const response = await trpc().eliza.create.mutate();
+    console.log(response);
+  }
 </script>
 
 <svelte:head>
@@ -38,3 +45,7 @@
     <CommandForm data={data.commandForm} action="?/command" />
   {/snippet}
 </Modal>
+
+<h2 class="h2 mt-8">Machines</h2>
+
+<button class="btn mt-4" onclick={createMachine}>Create Eliza Machine</button>

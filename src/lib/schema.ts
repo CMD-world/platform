@@ -66,8 +66,22 @@ export const workflowTable = sqliteTable(
   }),
 );
 
+export const elizaTable = sqliteTable("eliza", {
+  id: integer().primaryKey(),
+  userId: integer()
+    .notNull()
+    .references(() => userTable.id, { onDelete: "no action" }),
+  flyId: text().notNull(),
+  status: text().notNull(),
+  endpoint: text().notNull(),
+  createdAt: integer({ mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
 // Types
 export type User = InferSelectModel<typeof userTable>;
 export type ApiKey = InferSelectModel<typeof apiKeyTable>;
 export type Command = InferSelectModel<typeof commandTable>;
 export type Workflow = InferSelectModel<typeof workflowTable>;
+export type Eliza = InferSelectModel<typeof elizaTable>;

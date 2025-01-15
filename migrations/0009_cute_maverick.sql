@@ -1,0 +1,1 @@
+ALTER TABLE `eliza` ADD `status` text NOT NULL;
