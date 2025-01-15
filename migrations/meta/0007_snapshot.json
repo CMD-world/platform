@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "9bd3e693-4481-458d-8928-3e2e91edb18a",
+  "id": "3390cc74-2dd8-4f35-bba4-b566e156e699",
   "prevId": "1482bd53-f3c8-4143-838e-7413f43e6158",
   "tables": {
     "apiKey": {
@@ -158,8 +158,15 @@
           "notNull": true,
           "autoincrement": false
         },
-        "endpoint": {
-          "name": "endpoint",
+        "appName": {
+          "name": "appName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "status": {
+          "name": "status",
           "type": "text",
           "primaryKey": false,
           "notNull": true,

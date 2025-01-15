@@ -71,9 +71,8 @@ export const elizaTable = sqliteTable("eliza", {
   userId: integer()
     .notNull()
     .references(() => userTable.id, { onDelete: "no action" }),
-  flyId: text().notNull(),
+  appName: text().notNull(),
   status: text().notNull(),
-  endpoint: text().notNull(),
   createdAt: integer({ mode: "timestamp" })
     .notNull()
     .default(sql`(unixepoch())`),

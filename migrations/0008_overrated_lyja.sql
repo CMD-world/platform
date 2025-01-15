@@ -1,1 +1,0 @@
-ALTER TABLE `eliza` ADD `flyId` text NOT NULL;
