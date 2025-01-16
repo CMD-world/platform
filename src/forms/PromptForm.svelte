@@ -20,7 +20,7 @@
     validators: zodClient(promptSchema),
     onResult: ({ result }) => {
       if (result.type == "success") {
-        output = result.data?.message;
+        output = result.data?.response;
       }
     },
   });
