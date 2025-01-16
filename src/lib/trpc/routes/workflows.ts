@@ -107,9 +107,16 @@ export const workflows = t.router({
         description: "Delete an existing workflow.",
       },
     })
-    .input(z.object({ id: z.number() }))
+    .input(workflowSchema.pick({ id: true }))
     .output(z.object({ deleted: z.boolean() }))
     .mutation(async ({ ctx: { user }, input: { id } }) => {
+      if (!id) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Workflow ID is required for deletion",
+        });
+      }
+
       const [existingWorkflow] = await db
         .select()
         .from(workflowTable)
@@ -122,6 +129,7 @@ export const workflows = t.router({
           message: "Workflow not found or doesn't belong to user",
         });
       }
+
       const workflows = await db.delete(workflowTable).where(eq(workflowTable.id, id)).returning();
       return { deleted: workflows.length > 0 };
     }),
