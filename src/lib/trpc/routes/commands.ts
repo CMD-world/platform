@@ -100,20 +100,19 @@ export const commands = t.router({
             ${workflowExamples}
 
             First, try to determine if the user's prompt partially matches any workflow but is missing some required inputs.
-            Then, provide a brief, friendly response in clean HTML format that either:
+            Then, provide a brief, friendly response in markdown format that either:
 
             1. If there's a partial match:
                Create a response with:
-               - A <p> explaining which workflow they were trying to use
-               - A <ul> listing the specific required inputs that are missing
+               - A paragraph explaining which workflow they were trying to use
+               - A bullet list of the specific required inputs that are missing
 
             2. If there's no match at all:
                Create a response with:
-               - A <p> explaining we couldn't process their request
-               - A <ul> listing the available workflows
+               - A paragraph explaining we couldn't process their request
+               - A bullet list of the available workflows
 
-            Use only basic HTML tags (<p>, <ul>, <li>).
-            No markdown or complex formatting.
+            Use proper markdown formatting.
             Keep the response brief and actionable.
           `;
 
@@ -151,11 +150,10 @@ export const commands = t.router({
           - Workflow result: ${JSON.stringify(workflowResult)}
           - Workflow outputs schema: ${JSON.stringify(selectedWorkflow.outputs)}
 
-          Create a helpful response that incorporates the workflow results using only basic HTML tags (<p>, <ul>, <li>).
-          Do not use markdown, code blocks or complex formatting.
-          Keep the response brief and format it as clean, simple HTML.
-          Structure the response with proper paragraphs using <p> tags.
-          If you need a list, use <ul> and <li> tags.
+          Create a helpful response that incorporates the workflow results using proper markdown formatting.
+          Use paragraphs, bullet points, bold, and other markdown features as appropriate.
+          Keep the response brief and well-structured.
+          Format it as clean, simple markdown.
         `;
 
       const finalResponse = await openai.chat.completions.create({
