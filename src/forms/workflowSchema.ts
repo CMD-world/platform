@@ -20,8 +20,5 @@ export const workflowSchema = z.object({
 });
 
 // Types
-export type Parameter = {
-  name: string;
-  type: "string" | "boolean" | "number";
-};
+export type Parameter = z.infer<typeof parameterSchema>;
 export const types = ["string", "boolean", "number"];

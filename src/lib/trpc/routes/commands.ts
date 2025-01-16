@@ -14,8 +14,8 @@ export const commands = t.router({
     .meta({
       openapi: {
         method: "POST",
-        path: "/commands/create",
-        tags: ["Commmands"],
+        path: "/commands.create",
+        tags: ["Commands"],
         description: "Create new command for user.",
       },
     })
@@ -36,9 +36,9 @@ export const commands = t.router({
   update: privateProcedure
     .meta({
       openapi: {
-        method: "PUT",
-        path: "/commands/update",
-        tags: ["Commmands"],
+        method: "POST",
+        path: "/commands.update",
+        tags: ["Commands"],
         description: "Update an existing command for user.",
       },
     })
@@ -66,8 +66,8 @@ export const commands = t.router({
   delete: privateProcedure
     .meta({
       openapi: {
-        method: "DELETE",
-        path: "/commands/delete",
+        method: "POST",
+        path: "/commands.delete",
         tags: ["Commands"],
         description: "Delete a command for user.",
       },
@@ -75,7 +75,7 @@ export const commands = t.router({
     .input(commandSchema.pick({ id: true }))
     .output(
       z.object({
-        success: z.boolean(),
+        deleted: z.boolean(),
       }),
     )
     .mutation(async ({ ctx: { user }, input: { id } }) => {
@@ -85,8 +85,10 @@ export const commands = t.router({
           message: "Command ID is required for deletion",
         });
       }
-
-      await db.delete(commandTable).where(and(eq(commandTable.id, id), eq(commandTable.userId, user.id)));
-      return { success: true };
+      const commands = await db
+        .delete(commandTable)
+        .where(and(eq(commandTable.id, id), eq(commandTable.userId, user.id)))
+        .returning();
+      return { deleted: commands.length > 0 };
     }),
 });

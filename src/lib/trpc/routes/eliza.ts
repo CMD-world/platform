@@ -85,7 +85,7 @@ export const eliza = t.router({
     .meta({
       openapi: {
         method: "POST",
-        path: "/eliza/create",
+        path: "/eliza.create",
         tags: ["Eliza"],
         description: "Create new Eliza instance for user.",
       },
