@@ -9,7 +9,7 @@
   } = $props();
 </script>
 
-<div class="card cursor-pointer bg-base-200 p-6 transition-all hover:scale-105 hover:bg-base-300">
+<div class="card cursor-pointer bg-base-200 p-6 transition-all hover:bg-base-300">
   <h3 class="text-lg font-semibold">{workflow.name}</h3>
 
   <div class="mt-2 flex justify-between gap-4">
