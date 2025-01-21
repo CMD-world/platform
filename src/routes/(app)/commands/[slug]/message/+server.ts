@@ -28,7 +28,6 @@ export const GET: RequestHandler = async (event) => {
     platform_key: apiKey,
     platform_id: command.id.toString(),
     model: "swarmforce",
-    q: "Tell me what you can do for me!",
   });
   redirect(303, `${env.PUBLIC_CHAT_URL}?${searchParams.toString()}`);
 };

@@ -34,6 +34,7 @@ export const commands = t.router({
         .from(commandTable)
         .where(and(eq(commandTable.id, id), eq(commandTable.userId, user.id)))
         .then((rows) => rows[0]);
+      console.info("Got command:", command);
 
       if (!command) {
         throw new TRPCError({
@@ -43,6 +44,7 @@ export const commands = t.router({
       }
 
       const workflows = await db.select().from(workflowTable).where(eq(workflowTable.commandId, command.id));
+      console.info("Using workflows:", workflows);
 
       // Analyze prompt
       const workflowExamples = JSON.stringify(
@@ -61,34 +63,34 @@ export const commands = t.router({
 
           And this user prompt: "${prompt}"
 
-          Strictly analyze and return a JSON response. BE CONSERVATIVE in matching - if there is ANY doubt or missing information, return null.
+          Analyze and return a JSON response. Try to find the best matching workflow even if not all inputs are perfectly clear.
 
           Required format:
           {
-            "workflow": "name of the most suitable workflow or null if ANY uncertainty",
+            "workflow": "name of the most suitable workflow or null if no reasonable match",
             "inputs": {
-              // extracted input values - must EXACTLY match the workflow's required inputs
-              // if ANY required input is missing or unclear, return null instead
+              // extracted input values - should match the workflow's inputs as closely as possible
+              // use best effort to extract or infer missing inputs
             },
           }
 
           Rules:
-          - Return null unless there is a PERFECT match with ALL required inputs
-          - No partial matches allowed
-          - Missing or ambiguous inputs = null
-          - Only exact workflow name matches
+          - Return the best matching workflow even with partial input matches
+          - Make reasonable assumptions for unclear inputs
+          - Fuzzy matching of workflow names is acceptable
           - Must be valid JSON parseable
           - No additional text or code blocks
 
-          If in doubt, return null.
+          Try to find a workable match if possible.
         `;
 
       const analysis = await openai.chat.completions.create({
-        model: "accounts/fireworks/models/deepseek-v3",
+        model: "accounts/fireworks/models/qwen2p5-coder-32b-instruct",
         messages: [{ role: "user", content: analysisPrompt }],
       });
-
-      const workflowAnalysis = JSON.parse(analysis.choices[0].message.content || "{}");
+      const analysisContent = analysis.choices[0].message.content;
+      const workflowAnalysis = JSON.parse(analysisContent || "{}");
+      console.info("Got suggested workflow:", analysisContent, workflowAnalysis);
 
       // Get selected workflow
       const selectedWorkflow = workflows.find((w) => w.name === workflowAnalysis.workflow);
@@ -117,7 +119,7 @@ export const commands = t.router({
           `;
 
         const failureResponse = await openai.chat.completions.create({
-          model: "accounts/fireworks/models/deepseek-v3",
+          model: "accounts/fireworks/models/qwen2p5-coder-32b-instruct",
           messages: [{ role: "user", content: failurePrompt }],
         });
 
@@ -132,7 +134,7 @@ export const commands = t.router({
         },
         body: JSON.stringify(workflowAnalysis.inputs),
       });
-
+      console.info(response);
       if (!response.ok) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -141,6 +143,7 @@ export const commands = t.router({
       }
 
       const workflowResult = await response.json();
+      console.info("Got body:", workflowResult);
 
       // Generate final response
       const finalPrompt = `
@@ -157,7 +160,7 @@ export const commands = t.router({
         `;
 
       const finalResponse = await openai.chat.completions.create({
-        model: "accounts/fireworks/models/deepseek-v3",
+        model: "accounts/fireworks/models/qwen2p5-coder-32b-instruct",
         messages: [{ role: "user", content: finalPrompt }],
       });
 
