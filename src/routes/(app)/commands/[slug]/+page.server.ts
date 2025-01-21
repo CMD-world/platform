@@ -6,9 +6,20 @@ import { eq, and, asc } from "drizzle-orm";
 import { workflowSchema } from "$forms/workflowSchema";
 import { promptSchema } from "$forms/promptSchema";
 import { zod } from "sveltekit-superforms/adapters";
-import { setError, superValidate } from "sveltekit-superforms";
+import { superValidate } from "sveltekit-superforms";
 import { trpc } from "$lib/trpc/server";
-import { openai } from "$lib/openai";
+import type { PrivyDbUser } from "$lib/privy";
+
+async function getCommandBySlug(slug: string, user: PrivyDbUser) {
+  // Get command id
+  if (!user) error(401);
+  const commands = await db
+    .select()
+    .from(commandTable)
+    .where(and(eq(commandTable.slug, slug), eq(commandTable.userId, user.id)));
+  if (commands.length == 0) error(403);
+  return commands[0];
+}
 
 export const load: PageServerLoad = async ({ params: { slug }, locals: { user } }) => {
   // Get command and workflows
@@ -47,12 +58,7 @@ export const actions: Actions = {
 
     // Get command id
     if (!user) error(401);
-    const commands = await db
-      .select()
-      .from(commandTable)
-      .where(and(eq(commandTable.slug, slug), eq(commandTable.userId, user.id)));
-    if (commands.length == 0) error(403);
-    const command = commands[0];
+    const command = await getCommandBySlug(slug, user);
 
     // Update or create workflow
     await trpc(event).then((client) => {
@@ -66,18 +72,5 @@ export const actions: Actions = {
       }
     });
     return { workflowForm };
-  },
-  prompt: async (event) => {
-    // Validate form
-    const promptForm = await superValidate(event, zod(promptSchema));
-    if (!promptForm.valid) return fail(400, { promptForm });
-    const { prompt } = promptForm.data;
-
-    // Generate response
-    const response = await trpc(event).then((client) => client.commands.run({ slug: event.params.slug, prompt }));
-    return {
-      promptForm,
-      response,
-    };
   },
 };

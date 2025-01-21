@@ -72,8 +72,8 @@
 </div>
 
 <div class="mt-4">
-  <button class="btn btn-primary">
+  <a class="btn btn-primary" href="{command.slug}/message">
     <span class="i-lucide-send"></span>
     Send Message
-  </button>
+  </a>
 </div>

@@ -22,17 +22,17 @@ export const commands = t.router({
     })
     .input(
       z.object({
-        slug: z.string(),
+        id: z.number(),
         prompt: z.string(),
       }),
     )
     .output(z.string())
-    .mutation(async ({ ctx: { user }, input: { slug, prompt } }) => {
+    .mutation(async ({ ctx: { user }, input: { id, prompt } }) => {
       // Get command and workflows
       const command = await db
         .select()
         .from(commandTable)
-        .where(and(eq(commandTable.slug, slug), eq(commandTable.userId, user.id)))
+        .where(and(eq(commandTable.id, id), eq(commandTable.userId, user.id)))
         .then((rows) => rows[0]);
 
       if (!command) {
