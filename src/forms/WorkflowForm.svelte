@@ -37,8 +37,6 @@
   // Helper functions
   const addInput = () => ($formData.inputs = [...$formData.inputs, { name: "", type: "string" }]);
   const removeInput = (index: number) => ($formData.inputs = $formData.inputs.filter((_, i) => i !== index));
-  const addOutput = () => ($formData.outputs = [...$formData.outputs, { name: "", type: "string" }]);
-  const removeOutput = (index: number) => ($formData.outputs = $formData.outputs.filter((_, i) => i !== index));
 </script>
 
 <form {...props} class="space-y-4 {props.class}" method="POST" use:enhance>
@@ -60,7 +58,7 @@
       {/snippet}
     </Form.Control>
     <Form.Description class="text mt-2"
-      >Go here to <a class="link !underline" href="https://build.46.101.167.207.sslip.io" target="_blank">build workflow</a> and get webhook
+      ><a class="link !underline" href="https://build.46.101.167.207.sslip.io" target="_blank">Build workflow</a> then paste production webhook
       URL</Form.Description
     >
     <Form.FieldErrors class="mt-2 text-error" />
@@ -97,40 +95,6 @@
       </div>
     {/each}
     <button type="button" class="btn" onclick={addInput}><span class="i-lucide-plus"></span> Add Input </button>
-    <Form.FieldErrors class="mt-2 text-error" />
-  </Form.Fieldset>
-
-  <Form.Fieldset {form} name="outputs">
-    <Form.Legend class="mb-2">Outputs</Form.Legend>
-
-    {#each $formData.outputs as _, i}
-      <div class="mb-4 flex gap-2">
-        <Form.Field {form} name="outputs[{i}].name">
-          <Form.Control>
-            {#snippet children({ props })}
-              <input {...props} class="input input-bordered flex-1" bind:value={$formData.outputs[i].name} placeholder="Name" />
-            {/snippet}
-          </Form.Control>
-        </Form.Field>
-
-        <Form.Field {form} name="outputs[{i}].type">
-          <Form.Control>
-            {#snippet children({ props })}
-              <select {...props} class="select select-bordered" bind:value={$formData.outputs[i].type}>
-                {#each types as type}
-                  <option value={type}>{type}</option>
-                {/each}
-              </select>
-            {/snippet}
-          </Form.Control>
-        </Form.Field>
-
-        <button type="button" class="btn btn-square btn-error" aria-label="Remove" onclick={() => removeOutput(i)}>
-          <span class="i-lucide-trash-2"></span>
-        </button>
-      </div>
-    {/each}
-    <button type="button" class="btn" onclick={addOutput}><span class="i-lucide-plus"></span> Add Output </button>
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 

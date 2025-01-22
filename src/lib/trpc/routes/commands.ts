@@ -51,7 +51,6 @@ export const commands = t.router({
         workflows.map((w) => ({
           name: w.name,
           inputs: w.inputs,
-          outputs: w.outputs,
         })),
         null,
         2,
@@ -90,7 +89,7 @@ export const commands = t.router({
       });
       const analysisContent = analysis.choices[0].message.content;
       const workflowAnalysis = JSON.parse(analysisContent || "{}");
-      console.info("Got suggested workflow:", analysisContent, workflowAnalysis);
+      console.info("Got suggested workflow:", workflowAnalysis);
 
       // Get selected workflow
       const selectedWorkflow = workflows.find((w) => w.name === workflowAnalysis.workflow);
@@ -134,7 +133,6 @@ export const commands = t.router({
         },
         body: JSON.stringify(workflowAnalysis.inputs),
       });
-      console.info(response);
       if (!response.ok) {
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
@@ -151,7 +149,6 @@ export const commands = t.router({
           - Original user prompt: "${prompt}"
           - Workflow used: "${selectedWorkflow.name}"
           - Workflow result: ${JSON.stringify(workflowResult)}
-          - Workflow outputs schema: ${JSON.stringify(selectedWorkflow.outputs)}
 
           Create a helpful response that incorporates the workflow results using proper markdown formatting.
           Use paragraphs, bullet points, bold, and other markdown features as appropriate.

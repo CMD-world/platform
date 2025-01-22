@@ -13,15 +13,6 @@ export const workflowSchema = z.object({
     )
     .min(1, { message: "At least one input parameter is required" })
     .default([{ name: "", type: "string" }]),
-  outputs: z
-    .array(
-      z.object({
-        name: z.string().min(1, { message: "Name can't be empty" }),
-        type: z.enum(["string", "boolean", "number"]),
-      }),
-    )
-    .min(1, { message: "At least one output parameter is required" })
-    .default([{ name: "", type: "string" }]),
 });
 
 // Types

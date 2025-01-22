@@ -54,7 +54,6 @@ export const workflowTable = sqliteTable(
       .references(() => commandTable.id, { onDelete: "cascade" }),
     url: text().notNull(),
     inputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
-    outputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
     name: text().notNull(),
     slug: text().notNull(),
     createdAt: integer({ mode: "timestamp" })
