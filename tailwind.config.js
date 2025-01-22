@@ -3,8 +3,8 @@ import tailwindcssTypography from "@tailwindcss/typography";
 import { iconsPlugin, getIconCollections } from "@egoist/tailwindcss-icons";
 
 // Brand colors
-const primary = "#2567FF";
-const primaryContent = "#FFFFFF";
+const primary = "#FFFFFF";
+const primaryContent = "#000000";
 
 // /** @type {import('tailwindcss').Config} */
 const config = {
@@ -29,6 +29,8 @@ const config = {
           ...require("daisyui/src/theming/themes")["night"],
           primary,
           "primary-content": primaryContent,
+          "base-100": "#171717",
+          "base-200": "#0D0D0D",
         },
       },
     ],

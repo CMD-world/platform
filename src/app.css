@@ -42,3 +42,9 @@ code {
 .h3 {
   @apply text-2xl font-semibold md:text-3xl;
 }
+
+.h1,
+.h2,
+.h3 {
+  @apply dark:text-white;
+}

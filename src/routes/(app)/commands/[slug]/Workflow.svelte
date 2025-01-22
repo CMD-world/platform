@@ -9,7 +9,7 @@
   } = $props();
 </script>
 
-<div class="card max-w-72 cursor-pointer bg-base-200 p-6 transition-all hover:bg-base-300 dark:bg-gray-800 dark:hover:bg-gray-700">
+<div class="max-w-72 cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-100 dark:border-gray-700 dark:hover:bg-primary/5">
   <h3 class="text-lg font-semibold dark:text-white">{workflow.name}</h3>
 
   <div class="mt-2">
