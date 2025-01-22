@@ -39,7 +39,7 @@
   <p class="p mt-4">No workflows found. Go ahead and create one to get started.</p>
 {/if}
 
-<div class="mt-4 flex flex-wrap gap-4">
+<div class="mt-4 flex flex-wrap items-start gap-4">
   {#if workflows && workflows.length > 0}
     {#each workflows as workflow}
       <Modal>

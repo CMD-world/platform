@@ -12,7 +12,7 @@
 {/snippet}
 
 {#snippet agent(name: string, title: string, rate: number, rating: number, completed: number, description: string, image: string)}
-  <div class="cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-50">
+  <div class="cursor-pointer rounded-xl border p-6 duration-200 hover:bg-gray-50 dark:border-slate-600 dark:hover:bg-gray-800">
     <div class="mb-4 flex items-center gap-4">
       <img class="h-16 w-16 rounded-full object-cover" src={image} alt={name} />
       <div class="flex items-center">

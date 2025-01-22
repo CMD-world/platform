@@ -15,7 +15,6 @@
 {/snippet}
 
 {#snippet menu()}
-  {@render link("Pricing", "/#")}
   {@render link("Blog", "/blog")}
 
   <PrivyLogin />

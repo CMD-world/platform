@@ -94,7 +94,7 @@
         </button>
       </div>
     {/each}
-    <button type="button" class="btn" onclick={addInput}><span class="i-lucide-plus"></span> Add Input </button>
+    <button type="button" class="btn btn-secondary" onclick={addInput}><span class="i-lucide-plus"></span> Add Input </button>
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 

@@ -9,11 +9,11 @@
   } = $props();
 </script>
 
-<div class="card max-w-72 cursor-pointer bg-base-200 p-6 transition-all hover:bg-base-300">
-  <h3 class="text-lg font-semibold">{workflow.name}</h3>
+<div class="card max-w-72 cursor-pointer bg-base-200 p-6 transition-all hover:bg-base-300 dark:bg-gray-800 dark:hover:bg-gray-700">
+  <h3 class="text-lg font-semibold dark:text-white">{workflow.name}</h3>
 
   <div class="mt-2">
-    <p class="line-clamp-2 text-left text-sm text-base-content/70">{workflow.description}</p>
+    <p class="line-clamp-2 text-left text-sm text-base-content/70 dark:text-gray-300">{workflow.description}</p>
     <div class="flex-1">
       <div class="mt-2 flex flex-wrap gap-2">
         {#each workflow.inputs as input}
