@@ -27,7 +27,7 @@ export const GET: RequestHandler = async (event) => {
   const searchParams = new URLSearchParams({
     platform_key: apiKey,
     platform_id: command.id.toString(),
-    model: "swarmforce",
+    model: "cmdworld",
   });
   redirect(303, `${env.PUBLIC_CHAT_URL}?${searchParams.toString()}`);
 };
