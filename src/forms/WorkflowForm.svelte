@@ -60,7 +60,7 @@
       {/snippet}
     </Form.Control>
     <Form.Description class="text mt-2"
-      >Use the webhook URL from <a class="link !underline" href="https://n8n.46.101.167.207.sslip.io/" target="_blank">n8n</a
+      >Go here to <a class="link !underline" href="https://build.46.101.167.207.sslip.io" target="_blank">build workflow</a and get webhook URL
       ></Form.Description
     >
     <Form.FieldErrors class="mt-2 text-error" />
