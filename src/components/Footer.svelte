@@ -31,7 +31,7 @@
     </div>
 
     <div class="mt-12 text-center">
-      <p class="text">© {new Date().getFullYear()} AI Agent. All rights reserved.</p>
+      <p class="text">© {new Date().getFullYear()} CMD.world. All rights reserved.</p>
     </div>
   </div>
 </footer>

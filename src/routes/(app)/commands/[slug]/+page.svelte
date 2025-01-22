@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-  <title>{command.name} - AI Agent</title>
+  <title>{command.name} - CMD.world</title>
 </svelte:head>
 
 <div class="flex items-center gap-4">

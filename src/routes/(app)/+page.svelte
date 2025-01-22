@@ -8,7 +8,7 @@
 </script>
 
 <svelte:head>
-  <title>AI Agent</title>
+  <title>CMD.world</title>
 </svelte:head>
 
 <Hero {data} />

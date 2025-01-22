@@ -18,7 +18,7 @@
 </script>
 
 <svelte:head>
-  <title>{title} - AI Agent</title>
+  <title>{title} - CMD.world</title>
   <meta name="description" content={description} />
   <link href="/one-dark.css" rel="stylesheet" />
 </svelte:head>

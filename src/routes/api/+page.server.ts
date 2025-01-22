@@ -5,9 +5,9 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ url }) => {
   return {
     spec: generateOpenApiDocument(router, {
-      title: "AI Agent",
+      title: "CMD.world",
       version: "0.1.0",
-      description: "Documentation for AI Agent.",
+      description: "Documentation for CMD.world.",
       baseUrl: `${url.origin}/api`,
     }),
   };

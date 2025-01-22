@@ -24,7 +24,7 @@
 </script>
 
 <svelte:head>
-  <title>API - AI Agent</title>
+  <title>API - CMD.world</title>
 </svelte:head>
 
 <div id="swagger-ui"></div>

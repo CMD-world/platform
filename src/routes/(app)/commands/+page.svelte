@@ -10,7 +10,7 @@
 </script>
 
 <svelte:head>
-  <title>Commands - AI Agent</title>
+  <title>Commands - CMD.world</title>
 </svelte:head>
 
 <h1 class="h2">Commands</h1>

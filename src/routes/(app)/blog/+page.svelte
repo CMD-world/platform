@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>Blog - AI Agent</title>
+  <title>Blog - CMD.world</title>
 </svelte:head>
 
 <h1 class="h2">Blog</h1>
