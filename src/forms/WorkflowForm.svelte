@@ -59,7 +59,7 @@
     </Form.Control>
     <Form.Description class="text mt-2"
       ><a class="link !underline" href="https://build.46.101.167.207.sslip.io" target="_blank">Build workflow</a> then paste production webhook
-      URL</Form.Description
+      URL here</Form.Description
     >
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
@@ -95,6 +95,17 @@
       </div>
     {/each}
     <button type="button" class="btn" onclick={addInput}><span class="i-lucide-plus"></span> Add Input </button>
+    <Form.FieldErrors class="mt-2 text-error" />
+  </Form.Fieldset>
+
+  <Form.Fieldset {form} name="description">
+    <Form.Control>
+      {#snippet children({ props })}
+        <Form.Label class="label">Description</Form.Label>
+        <textarea {...props} class="textarea textarea-bordered w-full" bind:value={$formData.description} rows={3}></textarea>
+      {/snippet}
+    </Form.Control>
+    <Form.Description class="text mt-2">Describe what the inputs should look like to the LLM</Form.Description>
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 

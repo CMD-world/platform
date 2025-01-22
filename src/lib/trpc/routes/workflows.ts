@@ -46,6 +46,7 @@ export const workflows = t.router({
           slug: kebabCase(workflow.name),
           url: workflow.url,
           inputs: workflow.inputs,
+          description: workflow.description,
         })
         .returning();
       return newWorkflow;
@@ -90,6 +91,7 @@ export const workflows = t.router({
           slug: kebabCase(workflow.name),
           url: workflow.url,
           inputs: workflow.inputs,
+          description: workflow.description,
         })
         .where(eq(workflowTable.id, workflow.id))
         .returning();

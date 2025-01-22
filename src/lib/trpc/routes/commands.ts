@@ -50,6 +50,7 @@ export const commands = t.router({
       const workflowExamples = JSON.stringify(
         workflows.map((w) => ({
           name: w.name,
+          description: w.description,
           inputs: w.inputs,
         })),
         null,
@@ -126,21 +127,23 @@ export const commands = t.router({
       }
 
       // Call workflow
-      const response = await fetch(selectedWorkflow.url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(workflowAnalysis.inputs),
-      });
-      if (!response.ok) {
-        throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: `Error calling workflow: ${response.statusText}`,
+      let workflowResult;
+      try {
+        const response = await fetch(selectedWorkflow.url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(workflowAnalysis.inputs),
         });
+        if (!response.ok) {
+          return `Failed to process workflow. Used workflow "${selectedWorkflow.name}" with inputs: ${JSON.stringify(workflowAnalysis.inputs)}. Error: ${response.statusText}`;
+        }
+        workflowResult = await response.json();
+      } catch (error) {
+        return `Failed to process workflow. Used workflow "${selectedWorkflow.name}" with inputs: ${JSON.stringify(workflowAnalysis.inputs)}. Error: ${error.message}`;
       }
 
-      const workflowResult = await response.json();
       console.info("Got body:", workflowResult);
 
       // Generate final response

@@ -55,6 +55,7 @@ export const workflowTable = sqliteTable(
     url: text().notNull(),
     inputs: text({ mode: "json" }).$type<Parameter[]>().notNull(),
     name: text().notNull(),
+    description: text().notNull().default(""),
     slug: text().notNull(),
     createdAt: integer({ mode: "timestamp" })
       .notNull()

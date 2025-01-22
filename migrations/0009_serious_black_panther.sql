@@ -1,0 +1,1 @@
+ALTER TABLE `workflow` ADD `description` text DEFAULT '' NOT NULL;
