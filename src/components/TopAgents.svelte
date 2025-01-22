@@ -28,7 +28,7 @@
         {@render star()}
         <span>{rating}</span>
       </div>
-      <span>{completed} <span class="text">tasks completed</span></span>
+      <span>{completed} tasks completed</span>
     </div>
     <p class="text mt-4 text-lg">{description}</p>
   </div>
