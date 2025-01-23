@@ -128,7 +128,14 @@ export const GET: RequestHandler = async ({ url }) => {
           });
 
           if (!response.ok) {
-            controller.enqueue(`data: Failed to process workflow: ${response.statusText}\n\n`);
+            // Convert array of inputs to object format
+            const formattedInputs = selectedWorkflow.inputs.reduce((format, input) => {
+              format[input.name] = input.type;
+              return format;
+            }, {});
+            controller.enqueue(
+              `data: ${JSON.stringify({ content: `Failed to process workflow "${selectedWorkflow.name}" with these inputs, perhaps you made a mistake somewhere?\n\n### Inputs\n\`\`\`json\n${JSON.stringify(workflowAnalysis.inputs, null, 2)}\n\`\`\`\n\n### Format\n\`\`\`json\n${JSON.stringify(formattedInputs, null, 2)}\n\`\`\`` })}\n\n`,
+            );
             controller.close();
             return;
           }
@@ -136,7 +143,7 @@ export const GET: RequestHandler = async ({ url }) => {
           workflowResult = await response.json();
           console.info("Successfully called workflow");
         } catch (error) {
-          controller.enqueue(`data: Error executing workflow: ${error.message}\n\n`);
+          controller.enqueue(`data: ${JSON.stringify({ content: `Error occurred while executing workflow.` })}\n\n`);
           controller.close();
           return;
         }
