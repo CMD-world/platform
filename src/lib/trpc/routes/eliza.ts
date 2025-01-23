@@ -82,14 +82,6 @@ cpus = 4
 
 export const eliza = t.router({
   create: privateProcedure
-    .meta({
-      openapi: {
-        method: "POST",
-        path: "/eliza.create",
-        tags: ["Eliza"],
-        description: "Create new instance of Eliza",
-      },
-    })
     .input(z.void())
     .output(createSelectSchema(elizaTable))
     .mutation(async ({ ctx: { user } }) => {
