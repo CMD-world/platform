@@ -17,7 +17,7 @@
       <div class="mt-4">
         <h2 class="h3">{article.title}</h2>
         <p class="p mt-2">{article.description}</p>
-        <p class="mt-2 text-lg text-slate-500">
+        <p class="mt-2 text-lg text-gray-500">
           {article.date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
         </p>
       </div>

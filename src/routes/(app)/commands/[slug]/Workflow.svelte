@@ -13,7 +13,7 @@
   <h3 class="text-lg font-semibold dark:text-white">{workflow.name}</h3>
 
   <div class="mt-2">
-    <p class="line-clamp-2 text-left text-sm text-base-content/70 dark:text-gray-300">{workflow.description}</p>
+    <p class="line-clamp-2 text-left text-sm opacity-70 dark:text-gray-300">{workflow.description}</p>
     <div class="flex-1">
       <div class="mt-2 flex flex-wrap gap-2">
         {#each workflow.inputs as input}

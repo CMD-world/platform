@@ -5,7 +5,7 @@
   const { ...props } = $props();
 </script>
 
-<footer {...props} class="border-t py-12 dark:border-slate-600 {props.class}">
+<footer {...props} class="border-t py-12 dark:border-gray-600 {props.class}">
   <div class="container">
     <div class="grid gap-8 md:grid-cols-4">
       <div class="md:col-span-2">

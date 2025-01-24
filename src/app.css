@@ -16,7 +16,7 @@ code {
 }
 
 .text {
-  @apply text-slate-600 dark:text-slate-400;
+  @apply text-gray-600 dark:text-gray-400;
 }
 
 .p {

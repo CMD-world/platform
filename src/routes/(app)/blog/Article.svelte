@@ -27,7 +27,7 @@
   class="prose mx-auto max-w-none md:prose-xl prose-headings:mb-4 prose-headings:font-semibold prose-h1:text-4xl prose-code:before:hidden prose-code:after:hidden md:prose-h3:text-xl lg:prose-h2:text-3xl"
 >
   {#if date}
-    <p class="!mb-2 text-lg text-slate-500">
+    <p class="!mb-2 text-lg text-gray-500">
       {new Date(date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
     </p>
   {/if}
