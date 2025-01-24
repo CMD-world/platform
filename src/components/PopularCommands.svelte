@@ -27,7 +27,7 @@
         >
           <div>
             <h3 class="mb-2 text-2xl font-semibold">{command.name}</h3>
-            <p class="text text-lg">{command.description}</p>
+            <p class="text line-clamp-2 text-lg">{command.description}</p>
             <figure><img class="mt-4 rounded-xl" src="https://placehold.co/800x600/png?text={command.name}" alt={command.name} /></figure>
           </div>
         </a>
