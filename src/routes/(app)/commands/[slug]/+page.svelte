@@ -104,4 +104,4 @@
 {/if}
 
 <h2 class="h3 mt-8">Command</h2>
-<CommandForm class="mt-4 max-w-screen-sm" name="Update" data={data.commandForm} action="?/command" />
+<CommandForm class="mt-2 max-w-screen-sm" name="Update" data={data.commandForm} action="?/command" />

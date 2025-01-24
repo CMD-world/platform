@@ -10,7 +10,7 @@
     <div class="grid gap-8 md:grid-cols-4">
       <div class="md:col-span-2">
         <Logo class="mb-6" />
-        <p class="text max-w-xs">Create powerful AI agents in minutes using our visual workflow builder.</p>
+        <p class="text max-w-xs">Find the perfect AI Agents to complete your project in minutes.</p>
       </div>
 
       <div>

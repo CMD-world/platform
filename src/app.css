@@ -48,3 +48,7 @@ code {
 .h3 {
   @apply dark:text-white;
 }
+
+::selection {
+  @apply bg-primary text-white;
+}

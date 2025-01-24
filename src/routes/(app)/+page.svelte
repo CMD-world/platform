@@ -1,7 +1,6 @@
 <script lang="ts">
   import Hero from "$components/Hero.svelte";
-  import PopularServices from "$components/PopularServices.svelte";
-  import TopAgents from "$components/TopAgents.svelte";
+  import PopularCommands from "$components/PopularCommands.svelte";
 
   // Props
   const { data } = $props();
@@ -12,5 +11,4 @@
 </svelte:head>
 
 <Hero {data} />
-<PopularServices />
-<TopAgents class="mt-16" />
+<PopularCommands class="my-4" commands={data.commands} />
