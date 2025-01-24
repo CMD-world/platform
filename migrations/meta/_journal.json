@@ -71,6 +71,20 @@
       "when": 1737552732564,
       "tag": "0009_serious_black_panther",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1737710938317,
+      "tag": "0010_small_mole_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1737711358468,
+      "tag": "0011_redundant_spyke",
+      "breakpoints": true
     }
   ]
 }

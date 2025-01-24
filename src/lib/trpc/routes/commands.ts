@@ -248,4 +248,24 @@ export const commands = t.router({
         .returning();
       return { deleted: commands.length > 0 };
     }),
+
+  publish: privateProcedure
+    .meta({
+      openapi: {
+        method: "POST",
+        path: "/commands.publish",
+        tags: ["Commands"],
+        description: "Make command public/private",
+      },
+    })
+    .input(z.object({ id: z.number(), published: z.boolean() }))
+    .output(createSelectSchema(commandTable))
+    .mutation(async ({ ctx: { user }, input: { id, published } }) => {
+      const [command] = await db
+        .update(commandTable)
+        .set({ published })
+        .where(and(eq(commandTable.id, id), eq(commandTable.userId, user.id)))
+        .returning();
+      return command;
+    }),
 });

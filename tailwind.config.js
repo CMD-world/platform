@@ -22,13 +22,9 @@ const config = {
       {
         light: {
           ...require("daisyui/src/theming/themes")["cmyk"],
-          primary,
-          "primary-content": primaryContent,
         },
         dark: {
           ...require("daisyui/src/theming/themes")["night"],
-          primary,
-          "primary-content": primaryContent,
           "base-100": "#171717",
           "base-200": "#0D0D0D",
         },

@@ -3,6 +3,7 @@
   import WorkflowForm from "$forms/WorkflowForm.svelte";
   import Workflow from "./Workflow.svelte";
   import Create from "../Create.svelte";
+  import { type Command } from "$lib/schema";
   import { trpc } from "$lib/trpc/client";
   import { invalidateAll } from "$app/navigation";
 
@@ -21,6 +22,15 @@
     } finally {
       deletingWorkflow = false;
     }
+  }
+
+  let published = $state(command.published);
+  async function togglePublished() {
+    const newCommand = await trpc().commands.publish.mutate({
+      id: command.id,
+      published: !published,
+    });
+    published = newCommand.published;
   }
 </script>
 
@@ -71,9 +81,14 @@
   </Modal>
 </div>
 
-<div class="mt-4">
+<div class="mt-4 flex gap-2">
   <a class="btn btn-primary" href="{command.slug}/message">
     <span class="i-lucide-send"></span>
     Send Message
   </a>
+
+  <button class="btn {published ? 'btn-error' : 'btn-success'}" onclick={togglePublished}>
+    <span class="i-lucide-globe"></span>
+    {published ? "Make private" : "Make public"}
+  </button>
 </div>

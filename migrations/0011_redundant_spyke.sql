@@ -1,0 +1,1 @@
+ALTER TABLE `command` RENAME COLUMN "public" TO "published";
