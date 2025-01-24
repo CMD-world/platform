@@ -69,13 +69,16 @@
 
     {#each $formData.inputs as _, i}
       <div class="mb-4 flex gap-2">
-        <Form.Field {form} name="inputs[{i}].name">
-          <Form.Control>
-            {#snippet children({ props })}
-              <input {...props} class="input input-bordered flex-1" bind:value={$formData.inputs[i].name} placeholder="Name" />
-            {/snippet}
-          </Form.Control>
-        </Form.Field>
+        <div class="flex w-full flex-col">
+          <Form.Field {form} name="inputs[{i}].name">
+            <Form.Control>
+              {#snippet children({ props })}
+                <input {...props} class="input input-bordered flex-grow" bind:value={$formData.inputs[i].name} placeholder="Name" />
+              {/snippet}
+            </Form.Control>
+            <Form.FieldErrors class="mt-2 text-error" />
+          </Form.Field>
+        </div>
 
         <Form.Field {form} name="inputs[{i}].type">
           <Form.Control>

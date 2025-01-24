@@ -14,12 +14,10 @@
 
   <div class="mt-2">
     <p class="line-clamp-2 text-left text-sm opacity-70 dark:text-gray-300">{workflow.description}</p>
-    <div class="flex-1">
-      <div class="mt-2 flex flex-wrap gap-2">
-        {#each workflow.inputs as input}
-          <span class="badge badge-primary whitespace-nowrap text-xs">{input.name}: {input.type}</span>
-        {/each}
-      </div>
+    <div class="mt-4 flex flex-wrap gap-2">
+      {#each workflow.inputs as input}
+        <span class="badge badge-primary whitespace-nowrap text-xs">{input.name}:{input.type}</span>
+      {/each}
     </div>
   </div>
 </div>
