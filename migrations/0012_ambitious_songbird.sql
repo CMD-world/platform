@@ -1,0 +1,1 @@
+ALTER TABLE `command` ADD `description` text DEFAULT '' NOT NULL;

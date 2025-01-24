@@ -7,11 +7,12 @@
 
   // Props
   type Props = {
+    name: string;
     data: SuperValidated<Infer<typeof commandSchema>>;
   } & HTMLFormAttributes;
 
   // Forms
-  const { data, ...props }: Props = $props();
+  const { name = "Create", data, ...props }: Props = $props();
   const form = superForm(data, {
     validators: zodClient(commandSchema),
   });
@@ -29,10 +30,20 @@
     <Form.FieldErrors class="text-error" />
   </Form.Field>
 
+  <Form.Field {form} name="description">
+    <Form.Control>
+      {#snippet children({ props })}
+        <Form.Label class="label">Description</Form.Label>
+        <textarea {...props} class="textarea textarea-bordered w-full" bind:value={$formData.description} rows={4}></textarea>
+      {/snippet}
+    </Form.Control>
+    <Form.FieldErrors class="text-error" />
+  </Form.Field>
+
   <button class="btn btn-primary w-full" disabled={$submitting}>
     {#if $delayed}
       <span class="i-lucide-loader-circle mr-2 animate-spin"></span>
     {/if}
-    Create Command
+    {name} Command
   </button>
 </form>

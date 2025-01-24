@@ -4,11 +4,11 @@ import { db } from "$lib/database";
 import { commandTable, workflowTable } from "$lib/schema";
 import { eq, and, asc } from "drizzle-orm";
 import { workflowSchema } from "$forms/workflowSchema";
-import { promptSchema } from "$forms/promptSchema";
 import { zod } from "sveltekit-superforms/adapters";
 import { superValidate } from "sveltekit-superforms";
 import { trpc } from "$lib/trpc/server";
 import type { PrivyDbUser } from "$lib/privy";
+import { commandSchema } from "$forms/commandSchema";
 
 async function getCommandBySlug(slug: string, user: PrivyDbUser) {
   // Get command id
@@ -40,7 +40,7 @@ export const load: PageServerLoad = async ({ params: { slug }, locals: { user } 
   return {
     command,
     workflows,
-    promptForm: await superValidate(zod(promptSchema)),
+    commandForm: await superValidate(command, zod(commandSchema), { errors: false }),
     workflowForm: await superValidate(zod(workflowSchema)),
   };
 };
@@ -72,5 +72,21 @@ export const actions: Actions = {
       }
     });
     return { workflowForm };
+  },
+  command: async (event) => {
+    // Validate form
+    const {
+      params: { slug },
+      locals: { user },
+    } = event;
+    const commandForm = await superValidate(event, zod(commandSchema));
+    if (!commandForm.valid) return fail(400, { commandForm });
+    const { name, description } = commandForm.data;
+
+    // Update command
+    if (!user) error(401);
+    const command = await getCommandBySlug(slug, user);
+    const newCommand = await trpc(event).then((client) => client.commands.update({ id: command.id, name, description }));
+    throw redirect(303, `/commands/${newCommand.slug}`);
   },
 };

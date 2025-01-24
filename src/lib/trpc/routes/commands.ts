@@ -178,11 +178,12 @@ export const commands = t.router({
     })
     .input(commandSchema)
     .output(createSelectSchema(commandTable))
-    .mutation(async ({ ctx: { user }, input: { name } }) => {
+    .mutation(async ({ ctx: { user }, input: { name, description } }) => {
       const [command] = await db
         .insert(commandTable)
         .values({
           name,
+          description,
           slug: kebabCase(name),
           userId: user.id,
         })
@@ -201,7 +202,7 @@ export const commands = t.router({
     })
     .input(commandSchema)
     .output(createSelectSchema(commandTable))
-    .mutation(async ({ ctx: { user }, input: { id, name } }) => {
+    .mutation(async ({ ctx: { user }, input: { id, name, description } }) => {
       if (!id) {
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -212,7 +213,8 @@ export const commands = t.router({
       const [command] = await db
         .update(commandTable)
         .set({
-          name: name,
+          name,
+          description,
           slug: kebabCase(name),
         })
         .where(and(eq(commandTable.id, id), eq(commandTable.userId, user.id)))

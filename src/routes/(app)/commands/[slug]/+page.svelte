@@ -1,5 +1,6 @@
 <script lang="ts">
   import Modal from "$components/Modal.svelte";
+  import CommandForm from "$forms/CommandForm.svelte";
   import WorkflowForm from "$forms/WorkflowForm.svelte";
   import Workflow from "./Workflow.svelte";
   import Create from "../Create.svelte";
@@ -25,11 +26,14 @@
   }
 
   let published = $state(command.published);
+  let togglingPublished = $state(false);
   async function togglePublished() {
+    togglingPublished = true;
     const newCommand = await trpc().commands.publish.mutate({
       id: command.id,
       published: !published,
     });
+    togglingPublished = false;
     published = newCommand.published;
   }
 </script>
@@ -81,14 +85,23 @@
   </Modal>
 </div>
 
-<div class="mt-4 flex gap-2">
-  <a class="btn btn-primary" href="{command.slug}/message">
-    <span class="i-lucide-send"></span>
-    Send Message
-  </a>
+{#if workflows.length > 0}
+  <div class="mt-4 flex gap-4">
+    <a class="btn btn-primary" href="{command.slug}/message">
+      <span class="i-lucide-send"></span>
+      Send Message
+    </a>
 
-  <button class="btn {published ? 'btn-error' : 'btn-success'}" onclick={togglePublished}>
-    <span class="i-lucide-globe"></span>
-    {published ? "Make private" : "Make public"}
-  </button>
-</div>
+    <button class="btn {published ? 'btn-success' : ''}" onclick={togglePublished} disabled={togglingPublished}>
+      {#if published}
+        <span class="i-lucide-eye"></span>
+      {:else}
+        <span class="i-lucide-eye-off"></span>
+      {/if}
+      {published ? "Public" : "Private"}
+    </button>
+  </div>
+{/if}
+
+<h2 class="h3 mt-8">Command</h2>
+<CommandForm class="mt-4 max-w-screen-sm" name="Update" data={data.commandForm} action="?/command" />

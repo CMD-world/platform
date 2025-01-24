@@ -31,10 +31,10 @@ export const actions: Actions = {
     // Validate form
     const commandForm = await superValidate(event, zod(commandSchema));
     if (!commandForm.valid) return fail(400, { commandForm });
-    const { name } = commandForm.data;
+    const { name, description } = commandForm.data;
 
     // Create command then redirect to it
-    const command = await trpc(event).then((client) => client.commands.create({ name }));
+    const command = await trpc(event).then((client) => client.commands.create({ name, description }));
     throw redirect(303, `/commands/${command.slug}`);
   },
 };

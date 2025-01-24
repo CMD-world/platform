@@ -36,6 +36,7 @@ export const commandTable = sqliteTable(
       .references(() => userTable.id, { onDelete: "cascade" }),
     name: text().notNull(),
     slug: text().notNull(),
+    description: text().notNull().default(""),
     published: integer({ mode: "boolean" }).notNull().default(false),
     createdAt: integer({ mode: "timestamp" })
       .notNull()
