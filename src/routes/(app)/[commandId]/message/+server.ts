@@ -8,7 +8,7 @@ import { trpc } from "$lib/trpc/server";
 
 export const GET: RequestHandler = async (event) => {
   const {
-    params: { slug },
+    params: { commandId },
     locals: { user },
   } = event;
   if (!user) error(401);
@@ -17,7 +17,7 @@ export const GET: RequestHandler = async (event) => {
   const commands = await db
     .select()
     .from(commandTable)
-    .where(and(eq(commandTable.slug, slug), eq(commandTable.userId, user.id)));
+    .where(and(eq(commandTable.id, Number(commandId)), eq(commandTable.userId, user.id)));
   if (commands.length == 0) error(404);
   const command = commands[0];
 

@@ -87,7 +87,7 @@
 
 {#if workflows.length > 0}
   <div class="mt-4 flex gap-4">
-    <a class="btn btn-primary" href="{command.slug}/message">
+    <a class="btn btn-primary" href="/{command.id}/message">
       <span class="i-lucide-send"></span>
       Send Message
     </a>
