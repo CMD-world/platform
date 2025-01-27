@@ -71,9 +71,9 @@
       inputs: $formData.inputs,
     });
     if (success) {
-      toast.success("Connection to workflow works.");
+      toast.success("Successfully connected to workflow");
     } else {
-      toast.error("Connection to workflow failed.");
+      toast.error("Failed to establish connection");
     }
     verifyingConnection = false;
   }
