@@ -7,6 +7,7 @@
   import { getContext } from "svelte";
   import type { Workflow } from "$lib/schema";
   import { trpc } from "$lib/trpc/client";
+  import toast from "svelte-french-toast";
 
   // Props
   type Props = {
@@ -65,10 +66,15 @@
   });
   async function verifyConnection() {
     verifyingConnection = true;
-    validConnection = await trpc().workflows.test.query({
+    const success = await trpc().workflows.test.query({
       url: $formData.url,
       inputs: $formData.inputs,
     });
+    if (success) {
+      toast.success("Connection to workflow works.");
+    } else {
+      toast.error("Connection to workflow failed.");
+    }
     verifyingConnection = false;
   }
 </script>
