@@ -151,16 +151,18 @@
     <Form.FieldErrors class="mt-2 text-error" />
   </Form.Fieldset>
 
-  <Form.Fieldset {form} name="description">
-    <Form.Control>
-      {#snippet children({ props })}
-        <Form.Label class="label">Description</Form.Label>
-        <textarea {...props} class="textarea textarea-bordered w-full" bind:value={$formData.description} rows={4}></textarea>
-      {/snippet}
-    </Form.Control>
-    <Form.Description class="text mt-2">Describe what the inputs should look like to the LLM</Form.Description>
-    <Form.FieldErrors class="mt-2 text-error" />
-  </Form.Fieldset>
+  {#if $formData.inputs.length > 0}
+    <Form.Fieldset {form} name="description">
+      <Form.Control>
+        {#snippet children({ props })}
+          <Form.Label class="label">Description</Form.Label>
+          <textarea {...props} class="textarea textarea-bordered w-full" bind:value={$formData.description} rows={4}></textarea>
+        {/snippet}
+      </Form.Control>
+      <Form.Description class="text mt-2">Describe what the inputs should look like to the LLM</Form.Description>
+      <Form.FieldErrors class="mt-2 text-error" />
+    </Form.Fieldset>
+  {/if}
 
   <button class="btn btn-primary w-full" disabled={$submitting}>
     {#if $delayed}

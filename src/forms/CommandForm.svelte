@@ -37,15 +37,17 @@
     <Form.FieldErrors class="text-error" />
   </Form.Field>
 
-  <Form.Field {form} name="description">
-    <Form.Control>
-      {#snippet children({ props })}
-        <Form.Label class="label">Description</Form.Label>
-        <textarea {...props} class="textarea textarea-bordered w-full" bind:value={$formData.description} rows={4}></textarea>
-      {/snippet}
-    </Form.Control>
-    <Form.FieldErrors class="text-error" />
-  </Form.Field>
+  {#if name != "Create"}
+    <Form.Field {form} name="description">
+      <Form.Control>
+        {#snippet children({ props })}
+          <Form.Label class="label">Description</Form.Label>
+          <textarea {...props} class="textarea textarea-bordered w-full" bind:value={$formData.description} rows={4}></textarea>
+        {/snippet}
+      </Form.Control>
+      <Form.FieldErrors class="text-error" />
+    </Form.Field>
+  {/if}
 
   <button class="btn btn-primary w-full" disabled={$submitting}>
     {#if $delayed}
