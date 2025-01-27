@@ -25,7 +25,7 @@
     resetForm: workflow ? false : true,
     id: workflow ? `update_${workflow.id}` : "create",
     onResult: ({ result }) => {
-      if (result.type == "success") modal.close();
+      if (result.type != "failure" && result.type != "error") modal.close();
     },
   });
   const { form: formData, enhance, delayed, submitting } = form;

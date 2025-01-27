@@ -4,9 +4,8 @@
   import WorkflowForm from "$forms/WorkflowForm.svelte";
   import Workflow from "./Workflow.svelte";
   import Create from "../Create.svelte";
-  import { type Command } from "$lib/schema";
   import { trpc } from "$lib/trpc/client";
-  import { invalidateAll } from "$app/navigation";
+  import { goto, invalidateAll } from "$app/navigation";
 
   // Props
   const { data } = $props();
@@ -22,6 +21,20 @@
       await invalidateAll();
     } finally {
       deletingWorkflow = false;
+    }
+  }
+
+  // Helpers
+  let deletingCommand = $state(false);
+  async function deleteCommand(modal: HTMLDialogElement) {
+    try {
+      deletingCommand = true;
+      await trpc().commands.delete.mutate({ id: command.id });
+      modal.close();
+      await goto("/commands");
+      await invalidateAll();
+    } finally {
+      deletingCommand = false;
     }
   }
 
@@ -61,7 +74,7 @@
           <Workflow {workflow} />
         {/snippet}
         {#snippet content(modal: HTMLDialogElement)}
-          <div class="mb-4 flex items-baseline gap-4">
+          <div class="mb-4 flex items-center gap-4">
             <h3 class="h3">Update Workflow</h3>
             <button class="btn btn-error" onclick={() => deleteWorkflow(workflow.id, modal)} disabled={deletingWorkflow}>
               <span class="i-lucide-trash-2"></span>
@@ -85,8 +98,8 @@
   </Modal>
 </div>
 
-{#if workflows.length > 0}
-  <div class="mt-4 flex gap-4">
+<div class="mt-4 flex gap-4">
+  {#if workflows.length > 0}
     <a class="btn btn-primary" href="/{command.id}/message">
       <span class="i-lucide-send"></span>
       Send Message
@@ -100,8 +113,24 @@
       {/if}
       {published ? "Public" : "Private"}
     </button>
-  </div>
-{/if}
+  {/if}
 
-<h2 class="h3 mt-8">Command</h2>
-<CommandForm class="mt-2 max-w-screen-sm" name="Update" data={data.commandForm} action="?/command" />
+  <Modal>
+    {#snippet trigger()}
+      <button class="btn">
+        <span class="i-lucide-edit"></span>
+        Update Command
+      </button>
+    {/snippet}
+    {#snippet content(modal: HTMLDialogElement)}
+      <div class="mb-4 flex items-center gap-4">
+        <h2 class="h3">Update Command</h2>
+        <button class="btn btn-error" onclick={() => deleteCommand(modal)} disabled={deletingCommand}>
+          <span class="i-lucide-trash-2"></span>
+          Delete
+        </button>
+      </div>
+      <CommandForm class="mt-2 max-w-screen-sm" name="Update" data={data.commandForm} action="?/command" />
+    {/snippet}
+  </Modal>
+</div>

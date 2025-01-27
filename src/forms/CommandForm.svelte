@@ -4,6 +4,7 @@
   import { superForm, type Infer, type SuperValidated } from "sveltekit-superforms";
   import { zodClient } from "sveltekit-superforms/adapters";
   import { commandSchema } from "./commandSchema";
+  import { getContext } from "svelte";
 
   // Props
   type Props = {
@@ -11,10 +12,16 @@
     data: SuperValidated<Infer<typeof commandSchema>>;
   } & HTMLFormAttributes;
 
+  // State
+  const modal = getContext<{ close: () => void }>("modal");
+
   // Forms
   const { name = "Create", data, ...props }: Props = $props();
   const form = superForm(data, {
     validators: zodClient(commandSchema),
+    onResult: ({ result }) => {
+      if (result.type != "failure" && result.type != "error") modal.close();
+    },
   });
   const { form: formData, enhance, delayed, submitting } = form;
 </script>
