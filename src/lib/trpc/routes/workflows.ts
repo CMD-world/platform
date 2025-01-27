@@ -160,7 +160,6 @@ export const workflows = t.router({
           return [name, value];
         }),
       );
-      console.log("Sending data:", data);
 
       // Send to endpoint
       const response = await fetch(url, {
