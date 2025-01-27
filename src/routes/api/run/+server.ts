@@ -28,6 +28,11 @@ export const GET: RequestHandler = async ({ url }) => {
 
         const workflows = await db.select().from(workflowTable).where(eq(workflowTable.commandId, command.id));
         console.info(`Retrieved ${workflows.length} workflows`);
+        if (workflows.length == 0) {
+          controller.enqueue(`data: ${JSON.stringify({ content: "This command doesn't have any workflows." })}\n\n`);
+          controller.close();
+          return;
+        }
 
         // Analyze prompt
         const workflowExamples = JSON.stringify(
@@ -75,7 +80,11 @@ export const GET: RequestHandler = async ({ url }) => {
 
         const analysisContent = analysis.choices[0].message.content;
         const workflowAnalysis = JSON.parse(analysisContent || "{}");
-
+        if (workflowAnalysis == "null" || workflowAnalysis == null) {
+          controller.enqueue(`data: ${JSON.stringify({ content: "Failed to find matching workflow." })}\n\n`);
+          controller.close();
+          return;
+        }
         console.info(`Found matching workflow: "${workflowAnalysis.workflow}"`);
 
         // Get selected workflow
