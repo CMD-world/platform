@@ -160,6 +160,7 @@ export const workflows = t.router({
           return [name, value];
         }),
       );
+      console.log("Sending data:", data);
 
       // Send to endpoint
       const response = await fetch(url, {
@@ -169,6 +170,6 @@ export const workflows = t.router({
         },
         body: JSON.stringify(data),
       });
-      return response.ok;
+      return response.ok || response.status == 500; // We just want to see that endpoint exists, not that it works
     }),
 });
