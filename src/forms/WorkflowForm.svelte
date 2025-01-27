@@ -6,6 +6,7 @@
   import { types, workflowSchema } from "./workflowSchema";
   import { getContext } from "svelte";
   import type { Workflow } from "$lib/schema";
+  import { trpc } from "$lib/trpc/client";
 
   // Props
   type Props = {
@@ -37,6 +38,39 @@
   // Helper functions
   const addInput = () => ($formData.inputs = [...$formData.inputs, { name: "", type: "string" }]);
   const removeInput = (index: number) => ($formData.inputs = $formData.inputs.filter((_, i) => i !== index));
+
+  // Verify connection available when inputs are not empty
+  const canVerify = $derived.by(() => {
+    for (let input of $formData.inputs) {
+      if (input.name.trim().length == 0) return false;
+    }
+    try {
+      new URL($formData.url);
+      return true;
+    } catch {
+      return false;
+    }
+  });
+
+  let verifyingConnection = $state(false);
+  let validConnection = $state<boolean | null>(null);
+  const verifyMessage = $derived.by(() => {
+    if (validConnection === true) {
+      return "Valid";
+    } else if (validConnection === false) {
+      return "Invalid";
+    } else {
+      return "Verify";
+    }
+  });
+  async function verifyConnection() {
+    verifyingConnection = true;
+    validConnection = await trpc().workflows.test.query({
+      url: $formData.url,
+      inputs: $formData.inputs,
+    });
+    verifyingConnection = false;
+  }
 </script>
 
 <form {...props} class="space-y-4 {props.class}" method="POST" use:enhance>
@@ -54,7 +88,21 @@
     <Form.Control>
       {#snippet children({ props })}
         <Form.Label class="label">URL</Form.Label>
-        <input {...props} class="input input-bordered w-full" bind:value={$formData.url} type="url" />
+        <div class="flex items-center gap-2">
+          <input {...props} class="input input-bordered w-full" bind:value={$formData.url} type="url" />
+
+          <div class="tooltip" data-tip={canVerify && !verifyingConnection ? verifyMessage : undefined}>
+            <button
+              type="button"
+              class="btn btn-square btn-info"
+              aria-label="Verify"
+              onclick={verifyConnection}
+              disabled={!canVerify || verifyingConnection}
+            >
+              <span class="i-lucide-refresh-cw" class:animate-spin={verifyingConnection}></span>
+            </button>
+          </div>
+        </div>
       {/snippet}
     </Form.Control>
     <Form.Description class="text mt-2"
@@ -92,9 +140,11 @@
           </Form.Control>
         </Form.Field>
 
-        <button type="button" class="btn btn-square btn-error" aria-label="Remove" onclick={() => removeInput(i)}>
-          <span class="i-lucide-trash-2"></span>
-        </button>
+        <div class="tooltip" data-tip="Remove">
+          <button type="button" class="btn btn-square btn-error" aria-label="Remove" onclick={() => removeInput(i)}>
+            <span class="i-lucide-trash-2"></span>
+          </button>
+        </div>
       </div>
     {/each}
     <button type="button" class="btn btn-primary" onclick={addInput}><span class="i-lucide-plus"></span> Add Input </button>

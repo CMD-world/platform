@@ -133,4 +133,42 @@ export const workflows = t.router({
       const workflows = await db.delete(workflowTable).where(eq(workflowTable.id, id)).returning();
       return { deleted: workflows.length > 0 };
     }),
+
+  test: privateProcedure
+    .meta({
+      openapi: {
+        method: "POST",
+        path: "/workflows.test",
+        tags: ["Workflows"],
+        description: "Test workflow connection with mock data",
+      },
+    })
+    .input(workflowSchema.pick({ url: true, inputs: true }))
+    .output(z.boolean())
+    .query(async ({ input: { url, inputs } }) => {
+      // Generate mock data
+      const data = Object.fromEntries(
+        inputs.map(({ name, type }) => {
+          let value;
+          if (type == "string") {
+            value = Math.random().toString(36).substring(2, 7);
+          } else if (type == "boolean") {
+            value = Math.random() > 0.5;
+          } else if (type == "number") {
+            value = Math.floor(Math.random() * 100) + 1;
+          }
+          return [name, value];
+        }),
+      );
+
+      // Send to endpoint
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      return response.ok;
+    }),
 });
