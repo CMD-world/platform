@@ -80,7 +80,7 @@ export const GET: RequestHandler = async ({ url }) => {
 
         const analysisContent = analysis.choices[0].message.content;
         const workflowAnalysis = JSON.parse(analysisContent || "{}");
-        if (workflowAnalysis == "null" || workflowAnalysis == null) {
+        if (workflowAnalysis == "null" || workflowAnalysis == null || !workflowAnalysis.workflow || workflowAnalysis.workflow === "null") {
           controller.enqueue(`data: ${JSON.stringify({ content: "Failed to find matching workflow." })}\n\n`);
           controller.close();
           return;

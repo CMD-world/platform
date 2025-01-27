@@ -4,7 +4,7 @@ export const workflowSchema = z.object({
   id: z.number().optional(),
   name: z.string().min(1, { message: "Name can't be empty" }),
   url: z.string().url({ message: "Invalid URL" }),
-  description: z.string().min(1, { message: "Description can't be empty" }),
+  description: z.string().default(""),
   inputs: z
     .array(
       z.object({
@@ -12,7 +12,6 @@ export const workflowSchema = z.object({
         type: z.enum(["string", "boolean", "number"]),
       }),
     )
-    .min(1, { message: "At least one input parameter is required" })
     .default([{ name: "", type: "string" }]),
 });
 
